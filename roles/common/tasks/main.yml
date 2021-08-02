@@ -1,0 +1,4 @@
+---
+- name: Install bat
+  include_role:
+    name: gantsign.bat
