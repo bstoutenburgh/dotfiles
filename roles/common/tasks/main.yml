@@ -1,14 +1,4 @@
 ---
-# does this have any additional needs for Pop!_OS for origin patterns?
-- name: configure unattended-upgrades
-  include_role:
-    name: jnv.unattended-upgrades
-    apply:
-      become: yes
-  vars:
-    unattended_package_blacklist: [firefox]
-  when: ansible_facts['os_family'] == 'Debian'
-
-- name: install bat
+- name: Install bat
   include_role:
     name: gantsign.bat
