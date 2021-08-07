@@ -1,4 +1,15 @@
 ---
+- name: whoami
+  set_fact:
+    whoami: "{{ lookup('env', 'USER') | default('ben', true) }}"
+  tags:
+  - always
+  - whoami
+
+- name: configure terminal
+  include: terminal.yml
+  tags: terminal
+
 - name: Install bat
   include_role:
     name: gantsign.bat
