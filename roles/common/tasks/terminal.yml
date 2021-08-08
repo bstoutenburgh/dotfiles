@@ -1,10 +1,21 @@
 ---
+# NO, put this in bash files
+# - name: asdfkasdlf;sajdfasdkl;jf
+#   copy:
+#   content: |
+#     # Managed by Ansible
+#     [[ ":$PATH:" != *"${HOME}/.local/bin"* ]] && PATH="${HOME}/.local/bin:${PATH}"
+#   dest: /etc/profile.d/asdfqwerg
+#   owner: root
+#   group: root
+#   mode: '0644'
+
 - name: configure terminal
   template:
     src: "home/{{ item }}"
-    dest: "/home/{{ whoami }}/.{{ item }}"
-    owner: "{{ whoami }}"
-    group: "{{ whoami }}"
+    dest: "/home/{{ ansible_user }}/.{{ item }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
   with_items: [ ]
   # - bash_profile
   # - bashrc

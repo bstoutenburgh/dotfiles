@@ -3,7 +3,6 @@
 In general install items come with a requirement of configuring as well, no real need to be redundant.
 
 - TODO general: be less ubuntu-centric
-- TODO general: provide user variables from Makefile instead of fact in common role
 - TODO general: tags tags tags
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
@@ -28,8 +27,9 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: timeshift
 - TODO install: general packages
   - tree
-  - build-essential
   - vim
+- TODO install: development tools
+  - build-essential
 - TODO install: grc
 - TODO install: mounting matrioshka
 - TODO install: docker
