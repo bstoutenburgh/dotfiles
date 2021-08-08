@@ -2,5 +2,13 @@
 # For WSL and other non-full personal entities
 - hosts: all
   gather_facts: true
+  pre_tasks:
+  - name: Include host-specific configuration
+    include_vars: "{{ item }}"
+    with_fileglob:
+      - "{{ playbook_dir }}/hostname_vars/{{ ansible_hostname }}.yml"
+      - "{{ playbook_dir }}/config.yml"
+    tags: [always]
+
   roles:
     - common
