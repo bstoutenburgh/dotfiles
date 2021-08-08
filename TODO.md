@@ -3,7 +3,7 @@
 In general install items come with a requirement of configuring as well, no real need to be redundant.
 
 - TODO general: be less ubuntu-centric
-- TODO general: Makefile
+- TODO general: provide user variables from Makefile instead of fact in common role
 - TODO config: set timezone
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
