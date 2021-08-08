@@ -38,3 +38,4 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: kvm / libvirt & co
   - including vagrant
 - TODO install: asdf-vm
+- TODO install: gpaste

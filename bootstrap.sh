@@ -1,6 +1,4 @@
 #!/bin/bash
-#
-# TODO: adapt this to be less ubuntu-clone dependent
 
 set -e
 
