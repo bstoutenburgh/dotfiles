@@ -1,0 +1,15 @@
+---
+# https://wiki.archlinux.org/title/Gamepad#Xbox_Wireless_Controller_/_Xbox_One_Wireless_Controller
+# probably should reload a module after this but not worth the effort
+- name: xpad bluetooth ERTM fix
+  copy:
+    content: |
+      # Managed by Ansible
+      # https://wiki.archlinux.org/title/Gamepad#Xbox_Wireless_Controller_/_Xbox_One_Wireless_Controller
+      options bluetooth disable_ertm=1
+    dest: /etc/modprobe.d/xbox_bt.conf
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - "ansible_facts['kernel'] is version('5.12', '<')"

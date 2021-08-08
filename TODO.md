@@ -7,7 +7,6 @@ In general install items come with a requirement of configuring as well, no real
 - TODO general: tags tags tags
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
-- TODO config: xpad BT hack
 - TODO config: bash completion
 - TODO install: vscode
 - TODO install: chat items
@@ -38,3 +37,4 @@ In general install items come with a requirement of configuring as well, no real
   - including vagrant
 - TODO install: asdf-vm
 - TODO install: gpaste
+- TODO install: brother printer packages
