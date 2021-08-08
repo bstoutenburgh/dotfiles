@@ -1,0 +1,7 @@
+---
+- name: gaming role
+  debug:
+    msg: "gaming role coming at you"
+
+- name: install steam
+  include: steam.yml

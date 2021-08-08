@@ -4,7 +4,7 @@ In general install items come with a requirement of configuring as well, no real
 
 - TODO general: be less ubuntu-centric
 - TODO general: provide user variables from Makefile instead of fact in common role
-- TODO config: set timezone
+- TODO general: tags tags tags
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
 - TODO config: xpad BT hack
@@ -15,7 +15,6 @@ In general install items come with a requirement of configuring as well, no real
   - slack
   - signal
 - TODO install: game items
-  - steam
   - gamehub?
   - lutris?
   - retroarch?

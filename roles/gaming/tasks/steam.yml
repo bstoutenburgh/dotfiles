@@ -1,0 +1,13 @@
+---
+- name: enable i386 architecture with dpkg
+  lineinfile:
+    path: /var/lib/dpkg/arch
+    line: 'i386'
+    create: yes
+  register: add_i386
+
+# Need to try on a new system, this might be hung up on a license agreement
+- name: install steam
+  apt:
+    name: steam
+    update_cache: '{{ add_i386.changed }}'
