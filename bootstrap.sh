@@ -17,6 +17,6 @@ fi
 
 # clone the repo here
 
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy collection install -r requirements-galaxy.yml
 
-ansible-playbook --ask-become-pass desktop.yml
+# ansible-playbook --ask-become-pass desktop.yml

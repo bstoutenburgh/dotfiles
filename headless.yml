@@ -1,0 +1,6 @@
+---
+# For WSL and other non-full personal entities
+- hosts: all
+  gather_facts: true
+  roles:
+    - common
