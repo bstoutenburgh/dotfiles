@@ -3,3 +3,4 @@ collections:
 
 roles:
   - name: gantsign.bat
+  - name: staticdev.signal

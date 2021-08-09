@@ -1,0 +1,16 @@
+---
+- name: configure discord
+  include: discord.yml
+  tags:
+  - discord
+
+- name: configure signal
+  include_role:
+    name: staticdev.signal
+  tags:
+  - signal
+
+- name: configure slack
+  include: slack.yml
+  tags:
+  - slack
