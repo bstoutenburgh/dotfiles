@@ -8,6 +8,7 @@
 
 # Need to try on a new system, this might be hung up on a license agreement
 - name: install steam
+  become: yes
   apt:
     name: steam
     update_cache: '{{ add_i386.changed }}'

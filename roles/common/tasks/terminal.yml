@@ -11,6 +11,7 @@
 #   mode: '0644'
 
 - name: install common terminal apps
+  become: yes
   apt:
     name: "{{ common_apt_packages | union(additional_apt_packages | default([])) | unique }}"
     state: latest
