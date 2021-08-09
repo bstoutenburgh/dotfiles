@@ -9,7 +9,3 @@
 - name: configure terminal
   include: terminal.yml
   tags: terminal
-
-- name: Install bat
-  include_role:
-    name: gantsign.bat

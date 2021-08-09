@@ -17,6 +17,10 @@
   tags:
     - apt
 
+- name: Install bat
+  include_role:
+    name: gantsign.bat
+
 - name: configure terminal
   template:
     src: "home/{{ item }}"
