@@ -25,9 +25,6 @@ In general install items come with a requirement of configuring as well, no real
   - solaar
 - TODO install: tilix
 - TODO install: timeshift
-- TODO install: general packages
-  - tree
-  - vim
 - TODO install: development tools
   - build-essential
 - TODO install: grc
