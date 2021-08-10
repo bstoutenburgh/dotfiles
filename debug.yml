@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: true
+
+  tasks:
+  - name: ben debugging
+    debug:
+      var: ansible_facts

@@ -23,6 +23,7 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: timeshift
 - TODO install: development tools
   - build-essential
+  - gh
 - TODO install: grc
 - TODO install: mounting matrioshka
 - TODO install: docker
@@ -31,3 +32,7 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: asdf-vm
 - TODO install: gpaste
 - TODO install: brother printer packages
+- TODO install: more communication tools
+  - skype?
+  - zoom
+- TODO install: nordvpn
