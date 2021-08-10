@@ -36,3 +36,7 @@ In general install items come with a requirement of configuring as well, no real
   - skype?
   - zoom
 - TODO install: nordvpn
+- TODO install: grc
+- TODO dotfiles: bash
+  - PATH += $HOME/.local/bin
+  - history control
