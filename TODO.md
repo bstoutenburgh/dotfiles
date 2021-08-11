@@ -37,6 +37,8 @@ In general install items come with a requirement of configuring as well, no real
   - zoom
 - TODO install: nordvpn
 - TODO install: grc
+- TODO install: yq
+  - https://github.com/mikefarah/yq#on-ubuntu-1604-or-higher-from-debian-package
 - TODO dotfiles: bash
   - PATH += $HOME/.local/bin
   - history control
