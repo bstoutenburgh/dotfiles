@@ -7,6 +7,7 @@ In general install items come with a requirement of configuring as well, no real
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
 - TODO config: bash completion
+- TODO install: google-chrome
 - TODO install: vscode
 - TODO install: game items
   - gamehub?
@@ -18,7 +19,7 @@ In general install items come with a requirement of configuring as well, no real
     - http://matrioshka.lan:8080/workstations/bumblebee#extensions_from_extensionsgnomeorg
 - TODO install: openssh-server
 - TODO install: peripheral support
-  - solaar
+  - solaar (maybe for macro button control with newer versions, maybe battery status)
 - TODO install: tilix
 - TODO install: timeshift
 - TODO install: development tools
@@ -44,7 +45,9 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: yq
   - https://github.com/mikefarah/yq#on-ubuntu-1604-or-higher-from-debian-package
 - TODO install: fzf
+- TODO install: spotify
 - TODO dotfiles: bash
   - PATH += $HOME/.local/bin
   - history control
   - vte notify functionality from fedora
+  - highlight alias
