@@ -1,5 +1,8 @@
 ---
 common_apt_packages:
+  - bash-completion
+  - htop
   - jq
+  - screen
   - tree
   - vim
