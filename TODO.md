@@ -24,6 +24,10 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: development tools
   - build-essential
   - gh
+  - shellcheck
+  - yamllint (of some variation)
+  - jsonlint (of some variation)
+- TODO install: go
 - TODO install: grc
 - TODO install: mounting matrioshka
 - TODO install: docker
@@ -39,6 +43,8 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: grc
 - TODO install: yq
   - https://github.com/mikefarah/yq#on-ubuntu-1604-or-higher-from-debian-package
+- TODO install: fzf
 - TODO dotfiles: bash
   - PATH += $HOME/.local/bin
   - history control
+  - vte notify functionality from fedora
