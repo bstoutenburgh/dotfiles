@@ -4,8 +4,7 @@ In general install items come with a requirement of configuring as well, no real
 
 - TODO general: be less ubuntu-centric
 - TODO general: tags tags tags
-- TODO config: vscode settings sync or automated settings/extensions
-  - https://code.visualstudio.com/docs/editor/settings-sync
+- TODO optimize: roles that download debs should do installation checks like google-chrome
 - TODO config: bash completion
    - sudo activate-global-python-argcomplete
 - TODO config: desktop application defaults
@@ -35,6 +34,7 @@ In general install items come with a requirement of configuring as well, no real
 - TODO install: grc
 - TODO install: mounting matrioshka
 - TODO install: docker
+  - https://docs.docker.com/engine/security/rootless/
 - TODO install: kvm / libvirt & co
   - including vagrant
 - TODO install: asdf-vm
