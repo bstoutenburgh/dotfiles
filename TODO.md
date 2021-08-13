@@ -10,7 +10,17 @@ In general install items come with a requirement of configuring as well, no real
 - TODO config: desktop application defaults
   - browser
   - terminal
-- TODO install: vscode
+- TODO install: asdf-vm
+- TODO install: brother printer packages
+- TODO install: development tools
+  - build-essential
+  - gh
+  - shellcheck
+  - jsonlint (of some variation)
+  - ansible-lint (pipx install ansible-lint && pipx inject ansible-lint ansible argcomplete)
+- TODO install: docker
+  - https://docs.docker.com/engine/security/rootless/
+- TODO install: fzf
 - TODO install: game items
   - gamehub?
   - lutris?
@@ -19,38 +29,29 @@ In general install items come with a requirement of configuring as well, no real
   - gnome-tweaks
   - extensions
     - http://matrioshka.lan:8080/workstations/bumblebee#extensions_from_extensionsgnomeorg
-- TODO install: openssh-server
-- TODO install: peripheral support
-  - solaar (maybe for macro button control with newer versions, maybe battery status)
-- TODO install: tilix
-- TODO install: timeshift
-- TODO install: development tools
-  - build-essential
-  - gh
-  - shellcheck
-  - jsonlint (of some variation)
-  - ansible-lint (pipx install ansible-lint && pipx inject ansible-lint ansible argcomplete)
 - TODO install: go
-- TODO install: grc
-- TODO install: mounting matrioshka
-- TODO install: docker
-  - https://docs.docker.com/engine/security/rootless/
-- TODO install: kvm / libvirt & co
-  - including vagrant
-- TODO install: asdf-vm
 - TODO install: gpaste
-- TODO install: brother printer packages
+- TODO install: grc
 - TODO install: more communication tools
   - skype?
   - zoom
+- TODO install: mounting matrioshka
 - TODO install: nordvpn
-- TODO install: grc
+- TODO install: openssh-server
+- TODO install: peripheral support
+  - solaar (maybe for macro button control with newer versions, maybe battery status)
+- TODO install: spotify
+- TODO install: tilix
+- TODO install: timeshift
+- TODO install: virtualization
+  - kvm / libvirt & co
+  - vagrant (or dev tool?)
+- TODO install: vscode
 - TODO install: yq
   - https://github.com/mikefarah/yq#on-ubuntu-1604-or-higher-from-debian-package
-- TODO install: fzf
-- TODO install: spotify
 - TODO dotfiles: bash
   - PATH += $HOME/.local/bin
   - history control
   - vte notify functionality from fedora
   - highlight alias
+- TODO dotfiles: git
