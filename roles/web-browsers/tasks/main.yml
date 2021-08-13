@@ -1,0 +1,10 @@
+---
+- name: configure firefox
+  include: firefox.yml
+  tags: firefox
+
+- name: configure google-chrome
+  include: chrome.yml
+  tags:
+    - google-chrome
+    - chrome

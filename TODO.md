@@ -7,7 +7,10 @@ In general install items come with a requirement of configuring as well, no real
 - TODO config: vscode settings sync or automated settings/extensions
   - https://code.visualstudio.com/docs/editor/settings-sync
 - TODO config: bash completion
-- TODO install: google-chrome
+   - sudo activate-global-python-argcomplete
+- TODO config: desktop application defaults
+  - browser
+  - terminal
 - TODO install: vscode
 - TODO install: game items
   - gamehub?
@@ -28,6 +31,7 @@ In general install items come with a requirement of configuring as well, no real
   - shellcheck
   - yamllint (of some variation)
   - jsonlint (of some variation)
+  - ansible-lint (pipx install ansible-lint && pipx inject ansible-lint ansible argcomplete)
 - TODO install: go
 - TODO install: grc
 - TODO install: mounting matrioshka

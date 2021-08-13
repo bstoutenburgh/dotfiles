@@ -14,3 +14,4 @@
     - gaming
     - peripherals
     - {role: chat-clients, tags: ['chat-clients']}
+    - {role: web-browsers, tags: ['web-browsers']}

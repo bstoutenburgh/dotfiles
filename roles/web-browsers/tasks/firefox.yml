@@ -1,0 +1,6 @@
+---
+- name: install firefox
+  become: yes
+  apt:
+    name: firefox
+    state: latest
