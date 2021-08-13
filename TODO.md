@@ -29,7 +29,6 @@ In general install items come with a requirement of configuring as well, no real
   - build-essential
   - gh
   - shellcheck
-  - yamllint (of some variation)
   - jsonlint (of some variation)
   - ansible-lint (pipx install ansible-lint && pipx inject ansible-lint ansible argcomplete)
 - TODO install: go
