@@ -10,6 +10,11 @@ In general install items come with a requirement of configuring as well, no real
 - TODO config: desktop application defaults
   - browser
   - terminal
+- TODO config: create modified google-chrome.desktop file for dark mode
+  - https://askubuntu.com/questions/1159741/enable-dark-mode-on-chromes-internal-pages
+  - https://bugs.chromium.org/p/chromium/issues/detail?id=998903
+  - Exec=/usr/bin/google-chrome-stable %U --force-dark-mode --enable-features=WebUIDarkMode
+  - Exec=/usr/bin/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode
 - TODO install: asdf-vm
 - TODO install: brother printer packages
 - TODO install: development tools
