@@ -28,6 +28,7 @@
     dest: "/home/{{ ansible_user }}/.{{ item }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+    mode: 0644
   with_items: [ ]
   # - bash_profile
   # - bashrc

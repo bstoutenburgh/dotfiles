@@ -6,3 +6,4 @@ common_apt_packages:
   - screen
   - tree
   - vim
+  - yamllint

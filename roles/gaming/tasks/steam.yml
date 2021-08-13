@@ -4,6 +4,7 @@
     path: /var/lib/dpkg/arch
     line: 'i386'
     create: yes
+    mode: 0644
   register: add_i386
 
 # Need to try on a new system, this might be hung up on a license agreement
