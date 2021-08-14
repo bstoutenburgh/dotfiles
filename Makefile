@@ -33,10 +33,10 @@ bootstrap-install: ## Apt and python/pipx setups
 	bash scripts/bootstrap.sh
 
 desktop: ## Run the desktop playbook
-	ansible-playbook --ask-become-pass desktop.yml
+	ansible-playbook --ask-become-pass desktop.yml -v
 
 headless: ## Run the headless playbook
-	ansible-playbook --ask-become-pass headless.yml
+	ansible-playbook --ask-become-pass headless.yml -v
 
 requirements: ## Install ansible role/collection requirements
 	ansible-galaxy install -r requirements-galaxy.yml
