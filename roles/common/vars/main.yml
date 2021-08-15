@@ -1,6 +1,7 @@
 ---
 common_apt_packages:
   - bash-completion
+  - grc
   - htop
   - jq
   - screen
