@@ -1,10 +1,14 @@
 ---
 common_apt_packages:
   - bash-completion
+  - curl
   - grc
   - htop
   - jq
+  - mtr-tiny
+  - multitail
   - screen
   - tree
   - vim
+  - wget
   - yamllint
