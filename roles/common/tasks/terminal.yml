@@ -22,6 +22,10 @@
   include_role:
     name: gantsign.bat
 
+- name: install yq
+  include_role:
+    name: andrewrothstein.yq
+
 - name: configure terminal
   template:
     src: "home/{{ item }}"
