@@ -13,3 +13,10 @@
     mode: 0644
   when:
     - "ansible_facts['kernel'] is version('5.12', '<')"
+
+# Support Logitech HID devices
+- name: install solaar
+  include: solaar.yml
+  when: configure_solaar is defined
+  tags:
+  - solaar

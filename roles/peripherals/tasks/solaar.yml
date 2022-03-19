@@ -1,0 +1,41 @@
+---
+
+# remapping of logitech G keys landed in 1.0.5 or 1.0.6 so need the PPA
+- name: Add solaar-unifying stable repository from PPA and install its signing key
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:solaar-unifying/stable
+
+- name: Install solaar
+  become: yes
+  apt:
+    name: solaar
+    state: latest
+    update_cache: true
+
+# Reminder: pair devices manually, at least for now
+
+- name: Populate solaar rules scripts
+  copy:
+    src: "solaar/{{ item }}"
+    dest: "/home/{{ ansible_user }}/.local/bin/{{ item }}"
+    mode: 0775
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  loop: "{{ solaar_rules | selectattr('script', 'defined') | map(attribute='script') }}"
+  when: solaar_rules is defined
+
+- name: Populate solaar rules
+  blockinfile:
+    path: "/home/{{ ansible_user }}/.config/solaar/rules.yaml"
+    marker: "# {mark} ANSIBLE MANAGED RULE {{ item.key }}: {{ item.key_action }}"
+    create: true
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    block: |
+      ---
+      - Key: [{{ item.key }}, pressed]
+      - Execute: {{ item.key_action }}
+      ...
+  with_items: "{{ solaar_rules }}"
+  when: solaar_rules is defined

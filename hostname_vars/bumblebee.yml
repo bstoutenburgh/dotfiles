@@ -1,0 +1,6 @@
+---
+configure_solaar: true
+solaar_rules:
+  - script: zoom_flip_mute.sh
+    key: G6
+    key_action: zoom_flip_mute.sh
