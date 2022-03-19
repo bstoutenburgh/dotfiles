@@ -14,3 +14,9 @@
   include: slack.yml
   tags:
   - slack
+
+- name: configure zoom
+  become: yes
+  include: zoom.yml
+  tags:
+  - zoom

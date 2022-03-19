@@ -1,0 +1,43 @@
+---
+# Adapted from https://codeberg.org/ansible/zoom-client/src/branch/main/tasks/main.yml
+
+- name: Install dependencies
+  apt:
+    name:
+      - libglib2.0-0
+      - libgstreamer-plugins-base1.0-dev #- libgstreamer-plugins-base0.10-0
+      - libxcb-shape0
+      - libxcb-shm0
+      - libxcb-xfixes0
+      - libxcb-randr0
+      - libxcb-image0
+      - libfontconfig1
+      - libgl1-mesa-glx
+      - libxi6
+      - libsm6
+      - libxrender1
+      - libpulse0
+      - libxcomposite1
+      - libxslt1.1
+      - libsqlite3-0
+      - libxcb-keysyms1
+      - libxcb-xtest0
+      - ibus
+    state: present
+
+# For the sake of completeness we can import the Zoom PGP-key
+- name: Add the Zoom PGP key
+  apt_key:
+    url: https://zoom.us/linux/download/pubkey
+    state: present
+
+# Download the latest Zoom Ubuntu 14.04+ 64-bit client
+- name: "Download official Zoom DEB file"
+  get_url:
+    url: "{{ zoom_deb_url }}"
+    dest: /var/cache/apt/archives/
+  register: zoom_debfile
+
+- name: Install Zoom client
+  apt:
+    deb: "{{ zoom_debfile.dest }}"
