@@ -1,0 +1,8 @@
+---
+# Poorly named and will change later, kind of a catchall for more generic desktop items
+
+- name: install xdotool
+  become: yes
+  ansible.builtin.package:
+    name: xdotool
+    state: latest

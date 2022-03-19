@@ -11,6 +11,7 @@
 
   roles:
     - common
+    - desktop
     - gaming
     - peripherals
     - {role: chat_clients, tags: ['chat_clients']}
