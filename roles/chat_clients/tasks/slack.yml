@@ -1,8 +1,15 @@
 # TODO: Do not hardcode x64
 ---
+- name: check slack-desktop version is installed
+  ansible.builtin.command: dpkg-query --showformat='${Version}' --show slack-desktop
+  register: _slack_desktop_installed_version
+  changed_when: false
+  check_mode: false
+  failed_when: false
+
 - name: install slack
   become: true
   ansible.builtin.apt:
     deb: https://downloads.slack-edge.com/releases/linux/{{ slack_version }}/prod/x64/slack-desktop-{{ slack_version }}-{{ slack_machine_map[ansible_machine] }}.deb # noqa line-length
-  when: ('slack-desktop' not in ansible_facts.packages) or
-        (slack_version not in ansible_facts.packages['slack-desktop'] | map(attribute='version'))
+  when: (_slack_desktop_installed_version.rc == 1) or
+        (_slack_desktop_installed_version.stdout != slack_version)
