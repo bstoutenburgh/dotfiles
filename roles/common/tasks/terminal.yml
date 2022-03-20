@@ -12,22 +12,22 @@
 
 - name: install common terminal apps
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
     state: latest
   tags:
     - apt
 
 - name: install bat
-  include_role:
+  ansible.builtin.include_role:
     name: gantsign.bat
 
 - name: install yq
-  include_role:
+  ansible.builtin.include_role:
     name: andrewrothstein.yq
 
 - name: configure terminal
-  template:
+  ansible.builtin.template:
     src: "home/{{ item }}"
     dest: "/home/{{ ansible_user }}/.{{ item }}"
     owner: "{{ ansible_user }}"

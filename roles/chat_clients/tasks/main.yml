@@ -5,7 +5,7 @@
   - discord
 
 - name: configure signal
-  include_role:
+  ansible.builtin.include_role:
     name: staticdev.signal
   tags:
   - signal

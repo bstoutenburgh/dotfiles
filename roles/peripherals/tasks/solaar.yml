@@ -8,7 +8,7 @@
 
 - name: Install solaar
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: solaar
     state: latest
     update_cache: true
@@ -16,7 +16,7 @@
 # Reminder: pair devices manually, at least for now
 
 - name: Populate solaar rules scripts
-  copy:
+  ansible.builtin.copy:
     src: "solaar/{{ item }}"
     dest: "/home/{{ ansible_user }}/.local/bin/{{ item }}"
     mode: 0775
@@ -26,7 +26,7 @@
   when: solaar_rules is defined
 
 - name: Populate solaar rules
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: "/home/{{ ansible_user }}/.config/solaar/rules.yaml"
     marker: "# {mark} ANSIBLE MANAGED RULE {{ item.key }}: {{ item.key_action }}"
     create: true
