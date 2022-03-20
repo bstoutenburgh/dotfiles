@@ -16,7 +16,7 @@
 
 # Support Logitech HID devices
 - name: install solaar
-  include: solaar.yml
+  import_tasks: solaar.yml
   when: configure_solaar is defined
   tags:
   - solaar

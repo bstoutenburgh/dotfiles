@@ -1,6 +1,6 @@
 ---
 - name: configure discord
-  include: discord.yml
+  import_tasks: discord.yml
   tags:
   - discord
 
@@ -11,12 +11,12 @@
   - signal
 
 - name: configure slack
-  include: slack.yml
+  import_tasks: slack.yml
   tags:
   - slack
 
 - name: configure zoom
   become: yes
-  include: zoom.yml
+  import_tasks: zoom.yml
   tags:
   - zoom
