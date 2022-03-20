@@ -6,3 +6,10 @@
   ansible.builtin.package:
     name: "{{ common_gui_packages | union(additional_gui_packages | default([])) | unique }}"
     state: latest
+
+- name: remove gui apps
+  become: yes
+  ansible.builtin.package:
+    name: "{{ gui_packages_removal }} "
+    state: absent
+  when: gui_packages_removal is defined
