@@ -36,6 +36,7 @@
   ansible.builtin.get_url:
     url: "{{ zoom_deb_url }}"
     dest: /var/cache/apt/archives/
+    mode: 0644
   register: zoom_debfile
 
 - name: Install Zoom client

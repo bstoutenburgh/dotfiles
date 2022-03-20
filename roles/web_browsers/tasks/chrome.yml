@@ -22,6 +22,7 @@
   ansible.builtin.get_url:
     url: "{{ google_chrome_download_url }}/{{ google_chrome_package }}"
     dest: /tmp/
+    mode: 0664
   when: google_chrome_install
 
 - name: install google chrome package

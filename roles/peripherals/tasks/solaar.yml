@@ -32,6 +32,7 @@
     create: true
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+    mode: 0664
     block: |
       ---
       - Key: [{{ item.key }}, pressed]
