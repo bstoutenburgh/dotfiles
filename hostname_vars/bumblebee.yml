@@ -1,4 +1,6 @@
 ---
+enable_gaming: true
+
 configure_solaar: true
 solaar_rules:
   - script: zoom_flip_mute.sh

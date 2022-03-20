@@ -12,7 +12,7 @@
   roles:
     - common
     - desktop
-    - gaming
     - peripherals
     - {role: chat_clients, tags: ['chat_clients']}
+    - {role: gaming, tags: ['gaming'], when: enable_gaming is defined and enable_gaming}
     - {role: web_browsers, tags: ['web_browsers']}
