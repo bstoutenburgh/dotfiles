@@ -11,7 +11,7 @@
 #   mode: '0644'
 
 - name: install common terminal apps
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
     state: latest

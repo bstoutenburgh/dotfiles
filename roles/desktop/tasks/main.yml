@@ -2,13 +2,13 @@
 # Poorly named and will change later, kind of a catchall for more generic desktop items
 
 - name: install common gui apps
-  become: yes
+  become: true
   ansible.builtin.package:
     name: "{{ common_gui_packages | union(additional_gui_packages | default([])) | unique }}"
     state: latest
 
 - name: remove gui apps
-  become: yes
+  become: true
   ansible.builtin.package:
     name: "{{ gui_packages_removal }} "
     state: absent

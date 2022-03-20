@@ -16,7 +16,7 @@
   - slack
 
 - name: configure zoom
-  become: yes
+  become: true
   import_tasks: zoom.yml
   tags:
   - zoom

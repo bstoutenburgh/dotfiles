@@ -1,6 +1,6 @@
 ---
 - name: install firefox
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: firefox
     state: latest
