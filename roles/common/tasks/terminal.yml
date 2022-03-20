@@ -29,9 +29,9 @@
 - name: configure terminal
   ansible.builtin.template:
     src: "home/{{ item }}"
-    dest: "/home/{{ ansible_user }}/.{{ item }}"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    dest: "/home/{{ ansible_user_id }}/.{{ item }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0644
   with_items: []
   # - bash_profile

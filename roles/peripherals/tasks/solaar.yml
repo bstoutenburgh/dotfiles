@@ -18,20 +18,20 @@
 - name: Populate solaar rules scripts
   ansible.builtin.copy:
     src: "solaar/{{ item }}"
-    dest: "/home/{{ ansible_user }}/.local/bin/{{ item }}"
+    dest: "/home/{{ ansible_user_id }}/.local/bin/{{ item }}"
     mode: 0775
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
   loop: "{{ solaar_rules | selectattr('script', 'defined') | map(attribute='script') }}"
   when: solaar_rules is defined
 
 - name: Populate solaar rules
   ansible.builtin.blockinfile:
-    path: "/home/{{ ansible_user }}/.config/solaar/rules.yaml"
+    path: "/home/{{ ansible_user_id }}/.config/solaar/rules.yaml"
     marker: "# {mark} ANSIBLE MANAGED RULE {{ item.key }}: {{ item.key_action }}"
     create: true
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0664
     block: |
       ---
