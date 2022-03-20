@@ -1,4 +1,10 @@
 ---
+- name: gather current package facts
+  ansible.builtin.package_facts:
+    manager: auto
+  tags:
+    - always
+
 - name: configure terminal
   import_tasks: terminal.yml
   tags: terminal
