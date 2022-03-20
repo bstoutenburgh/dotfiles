@@ -19,4 +19,4 @@
   import_tasks: solaar.yml
   when: configure_solaar is defined
   tags:
-  - solaar
+    - solaar

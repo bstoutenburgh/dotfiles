@@ -39,5 +39,5 @@
   # - inputrc
   # - profile
   tags:
-  - terminal
-  - bashrc
+    - terminal
+    - bashrc

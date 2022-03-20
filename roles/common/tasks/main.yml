@@ -3,8 +3,8 @@
   ansible.builtin.set_fact:
     ansible_user: "{{ lookup('env', 'USER') | default('ben', true) }}"
   tags:
-  - always
-  - ansible_user
+    - always
+    - ansible_user
 
 - name: configure terminal
   import_tasks: terminal.yml

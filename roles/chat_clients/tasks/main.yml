@@ -8,15 +8,15 @@
   ansible.builtin.include_role:
     name: staticdev.signal
   tags:
-  - signal
+    - signal
 
 - name: configure slack
   import_tasks: slack.yml
   tags:
-  - slack
+    - slack
 
 - name: configure zoom
   become: true
   import_tasks: zoom.yml
   tags:
-  - zoom
+    - zoom
