@@ -9,6 +9,7 @@ common_apt_packages:
   - multitail
   - screen
   - tree
+  - unzip
   - vim
   - wget
   - yamllint
