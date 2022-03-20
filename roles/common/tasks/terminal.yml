@@ -29,7 +29,7 @@
 - name: configure terminal
   ansible.builtin.template:
     src: "home/{{ item }}"
-    dest: "/home/{{ ansible_user_id }}/.{{ item }}"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     mode: 0644

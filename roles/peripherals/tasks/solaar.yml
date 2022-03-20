@@ -18,7 +18,7 @@
 - name: Populate solaar rules scripts
   ansible.builtin.copy:
     src: "solaar/{{ item }}"
-    dest: "/home/{{ ansible_user_id }}/.local/bin/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item }}"
     mode: 0775
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
@@ -27,7 +27,7 @@
 
 - name: Populate solaar rules
   ansible.builtin.blockinfile:
-    path: "/home/{{ ansible_user_id }}/.config/solaar/rules.yaml"
+    path: "{{ ansible_user_dir }}/.config/solaar/rules.yaml"
     marker: "# {mark} ANSIBLE MANAGED RULE {{ item.key }}: {{ item.key_action }}"
     create: true
     owner: "{{ ansible_user_id }}"
