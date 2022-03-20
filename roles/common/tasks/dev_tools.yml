@@ -1,0 +1,8 @@
+---
+- name: link ansible-lint
+  ansible.builtin.file:
+    src: "{{ lookup('env', 'PIPX_HOME') | default(ansible_user_dir + '/.local/pipx', true) }}/venvs/ansible/bin/ansible-lint"
+    dest: "{{ lookup('env', 'PIPX_BIN_DIR') | default(ansible_user_dir + '/.local/bin', true) }}/ansible-lint"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    state: link

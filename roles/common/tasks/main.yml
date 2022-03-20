@@ -9,3 +9,9 @@
 - name: configure terminal
   include: terminal.yml
   tags: terminal
+
+- name: configure common dev tools
+  import_tasks: dev_tools.yml
+  tags:
+    - terminal
+    - dev
