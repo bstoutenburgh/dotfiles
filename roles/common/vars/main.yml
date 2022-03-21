@@ -1,6 +1,7 @@
 ---
 common_terminal_packages:
   - bash-completion
+  - colordiff
   - curl
   - grc
   - htop

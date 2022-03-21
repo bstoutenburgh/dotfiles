@@ -1,0 +1,20 @@
+alias diff=colordiff
+alias please=sudo
+
+GRC=$(command -v grc)
+if [ -n ${GRC} ] && [ "$TERM" != dumb ]; then
+  alias colourify="$GRC -es --colour=auto"
+  alias configure='colourify ./configure'
+  alias iptables="sudo ${GRC} -es --colour=auto iptables"
+  grc_commands=(ant arpping blkid cvs df dig dnf docker docker-compose \
+                docker-machine du env fdisk findmnt free g++ gcc getfacl \
+                getsebool gmake hping id ifconfig ioping iostat ip iwconfig \
+                journalctl l2ping last lastb lastlog lsattr lsblk lsmod lsof \
+                lspci make mount mtr mvn netstat nmap nping ntpdate oping ping \
+                ps sar semanage showmount ss stat sysctl systemctl tcpdump \
+                traceroute traceroute6 tune2fs ulimit uptime vmstat w wdiff \
+                who whois )
+  for cmd in ${grc_commands[@]}; do
+    command -v ${cmd} >/dev/null && alias "${cmd}"="colourify ${cmd}"
+  done
+fi

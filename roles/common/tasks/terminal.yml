@@ -35,6 +35,7 @@
     mode: 0644
   with_items:
     - bashrc
+    - bash_aliases
   # - inputrc
   # - profile
   tags:
