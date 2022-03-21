@@ -6,3 +6,27 @@
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     state: link
+
+- name: configure git
+  ansible.builtin.template:
+    src: "home/{{ item }}.j2"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664
+  with_items:
+    - gitconfig
+  tags:
+    - git
+    - gitconfig
+
+- name: ensure a .gitconfig.local
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ ansible_user_dir }}/.gitconfig.local"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664
+    force: false
+  tags:
+    - gitconfig.local
