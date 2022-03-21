@@ -1,0 +1,7 @@
+#!/bin/sh
+
+LOCAL_BIN="${HOME}/.local/bin"
+[[ ":$PATH:" != *"${LOCAL_BIN}"* ]] && export PATH="${LOCAL_BIN}:${PATH}"
+
+# Go
+export PATH="$PATH:$HOME/go/bin"

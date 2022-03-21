@@ -36,8 +36,7 @@
   with_items:
     - bashrc
     - bash_aliases
-  # - inputrc
-  # - profile
+    - profile
   tags:
     - bashrc
 
