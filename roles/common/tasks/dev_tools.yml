@@ -30,3 +30,12 @@
     force: false
   tags:
     - gitconfig.local
+
+- name: download asdf
+  ansible.builtin.git:
+    clone: true
+    repo: "https://github.com/asdf-vm/asdf.git"
+    dest: "{{ ansible_user_dir }}/.asdf"
+    version: v0.9.0
+  tags:
+    - asdf

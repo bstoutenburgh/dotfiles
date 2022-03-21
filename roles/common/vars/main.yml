@@ -3,12 +3,15 @@ common_terminal_packages:
   - bash-completion
   - colordiff
   - curl
+  - gnupg
   - grc
+  - gzip
   - htop
   - jq
   - mtr-tiny
   - multitail
   - screen
+  - tar
   - tree
   - unzip
   - vim
