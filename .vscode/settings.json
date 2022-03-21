@@ -1,5 +1,19 @@
 {
   "files.associations": {
-    "*.yml": "ansible"
-}
+    // Ansible
+    ".ansible-lint": "yaml",
+    "**/defaults/**/*.yml": "ansible",
+    "**/group_vars/**/*": "ansible",
+    "**/handlers/*.yml": "ansible",
+    "**/host_vars/**/*": "ansible",
+    "**/meta/*.yml": "ansible",
+    "**/playbooks/**/*.yml": "ansible",
+    "**/roles/**/*.yml": "ansible",
+    "**/tasks/**/*.yml": "ansible",
+    "**/templates/**/*.j2": "ansible-jinja",
+    "**/vars/**/*.yml": "ansible",
+    "**/ansible/**/hosts": "ini",
+    "**/ansible/**/inventory": "ini",
+    "ansible.cfg": "ini",
+  }
 }
