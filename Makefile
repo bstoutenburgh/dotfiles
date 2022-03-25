@@ -45,4 +45,4 @@ headless-check: ## Run the headless playbook with --check
 	ansible-playbook --ask-become-pass headless.yml --verbose --check
 
 requirements: ## Install ansible role/collection requirements
-	ansible-galaxy install -r requirements-galaxy.yml
+	ansible-galaxy install --force-with-deps --role-file requirements-galaxy.yml
