@@ -4,4 +4,5 @@ collections:
 roles:
   - name: andrewrothstein.yq
   - name: gantsign.bat
+    version: 1.11.1
   - name: staticdev.signal
