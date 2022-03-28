@@ -1,0 +1,26 @@
+---
+- name: configure bash
+  ansible.builtin.template:
+    src: "home/{{ item }}.j2"
+    dest: "{{ ansible_user_dir }}/.{{ item }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0644
+  with_items:
+    - bashrc
+    - bash_aliases
+    - profile
+  tags:
+    - bash
+    - bashrc
+
+- name: ensure a .bashrc_local
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ ansible_user_dir }}/.bashrc_local"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664
+    force: false
+  tags:
+    - bashrc_local

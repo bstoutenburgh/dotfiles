@@ -1,17 +1,42 @@
 ---
-# heavy handed for now, check slack and chrome tasks for a different path
-# - name: gather current package facts
-#   ansible.builtin.package_facts:
-#     manager: auto
-#   tags:
-#     - always
+- name: configure shells
+  import_tasks: shells.yml
+  tags: shells
 
-- name: configure terminal
-  import_tasks: terminal.yml
-  tags: terminal
-
-- name: configure common dev tools
-  import_tasks: dev_tools.yml
+- name: configure git
+  import_tasks: git.yml
   tags:
-    - terminal
-    - dev
+    - git
+
+- name: download asdf
+  ansible.builtin.git:
+    clone: true
+    repo: git@github.com:asdf-vm/asdf.git
+    dest: "{{ ansible_user_dir }}/.asdf"
+    version: v0.9.0
+  tags:
+    - asdf
+
+- name: link ansible-lint
+  ansible.builtin.file:
+    src: "{{ lookup('env', 'PIPX_HOME') | default(ansible_user_dir + '/.local/pipx', true) }}/venvs/ansible/bin/ansible-lint"
+    dest: "{{ lookup('env', 'PIPX_BIN_DIR') | default(ansible_user_dir + '/.local/bin', true) }}/ansible-lint"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    state: link
+
+- name: install common terminal apps
+  become: true
+  ansible.builtin.apt:
+    name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
+    state: latest
+  tags:
+    - apt
+
+- name: install bat
+  ansible.builtin.include_role:
+    name: gantsign.bat
+
+- name: install yq
+  ansible.builtin.include_role:
+    name: andrewrothstein.yq
