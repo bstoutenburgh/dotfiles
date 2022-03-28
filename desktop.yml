@@ -1,12 +1,13 @@
 ---
 - hosts: all
   gather_facts: true
+  vars_files:
+    - default.config.yml
   pre_tasks:
   - name: Include host-specific configuration
     ansible.builtin.include_vars: "{{ item }}"
     with_fileglob:
       - "{{ playbook_dir }}/hostname_vars/{{ ansible_hostname }}.yml"
-      - "{{ playbook_dir }}/config.yml"
     tags: [always]
 
   roles:
@@ -14,5 +15,5 @@
     - desktop
     - peripherals
     - {role: chat_clients, tags: ['chat_clients']}
-    - {role: gaming, tags: ['gaming'], when: enable_gaming is defined and enable_gaming}
+    - {role: gaming, tags: ['gaming'], when: configure_gaming}
     - {role: web_browsers, tags: ['web_browsers']}

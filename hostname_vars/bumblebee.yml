@@ -2,7 +2,7 @@
 gui_packages_removal:
   - libreoffice-*
 
-enable_gaming: true
+configure_gaming: true
 
 configure_solaar: true
 solaar_rules:
