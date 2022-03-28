@@ -13,7 +13,7 @@
     clone: true
     repo: git@github.com:asdf-vm/asdf.git
     dest: "{{ ansible_user_dir }}/.asdf"
-    version: v0.9.0
+    version: "{{ asdf_version }}"
   tags:
     - asdf
 
