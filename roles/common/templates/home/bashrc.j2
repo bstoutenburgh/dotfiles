@@ -130,12 +130,9 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 # asdf
 [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
 
-# because we handled aliases earlier
-if [ -n ${GRC} ] && [ "$TERM" != dumb ]; then
-  for cmd in kubectl; do
-    command -v ${cmd} >/dev/null && alias "${cmd}"="colourify ${cmd}"
-  done
-  alias k=kubectl
+# because we handled aliases before asdf
+if [ -n "${GRC}" ] && [ "$TERM" != dumb ]; then
+  command -v kubectl >/dev/null && alias kubectl="colourify kubectl"
 fi
 
 # and because completion is handled before using asdf for now
@@ -143,6 +140,12 @@ for command in kubectl helm minikube; do
   # shellcheck disable=SC1090
   command -v ${command} >/dev/null 2>&1 && source <(${command} completion bash)
 done
+
+# Less straight forward than using complete-alias since kubectl itself is an alias
+if command -v kubectl >/dev/null; then
+  alias k=kubectl
+  complete -o default -F __start_kubectl k
+fi
 
 # shellcheck disable=SC1090
 command -v npm >/dev/null 2>&1 && source <(npm completion)
