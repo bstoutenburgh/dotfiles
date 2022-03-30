@@ -17,3 +17,4 @@
     - {role: chat_clients, tags: ['chat_clients']}
     - {role: gaming, tags: ['gaming'], when: configure_gaming}
     - {role: web_browsers, tags: ['web_browsers']}
+    - {role: kvm, tags: ['kvm', 'libvirt'], when: configure_kvm}

@@ -9,3 +9,8 @@ solaar_rules:
   - script: zoom_flip_mute.sh
     key: G6
     key_action: zoom_flip_mute.sh
+
+configure_kvm: true
+additional_libvirt_packages:
+  - gnome-boxes
+  - virt-manager

@@ -1,0 +1,9 @@
+---
+- name: install libvirt items
+  become: true
+  ansible.builtin.apt:
+    name: "{{ libvirt_packages | union(additional_libvirt_packages | default([])) | unique }}"
+    state: latest
+  tags:
+    - kvm
+    - libvirt

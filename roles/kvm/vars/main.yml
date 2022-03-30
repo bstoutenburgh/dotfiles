@@ -1,0 +1,6 @@
+---
+libvirt_packages:
+  - bridge-utils
+  - libvirt-clients
+  - libvirt-daemon-system
+  - qemu-kvm
