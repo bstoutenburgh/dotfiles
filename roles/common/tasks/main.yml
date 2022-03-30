@@ -17,6 +17,16 @@
   tags:
     - asdf
 
+- name: download complete-alias
+  ansible.builtin.git:
+    repo: git@github.com:cykerway/complete-alias.git
+    dest: "{{ ansible_user_dir }}/.complete-alias"
+    version: "{{ complete_alias_version }}"
+  when:
+    - configure_complete_alias
+  tags:
+    - complete-alias
+
 - name: install common terminal apps
   become: true
   ansible.builtin.apt:

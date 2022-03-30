@@ -1,4 +1,7 @@
 # shellcheck shell=bash
+
+[ -f "${HOME}"/.complete-alias/complete_alias ] && . "${HOME}"/.complete-alias/complete_alias
+
 # shellcheck disable=SC1091
 [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/completions/asdf.bash"
 
@@ -39,6 +42,3 @@ if [[ -d "${HOME}/.bash_completion.d" ]]; then
     . "${bcfile}"
   done
 fi
-
-# TODO: add https://github.com/cykerway/complete-alias
-# kubectl alias, k

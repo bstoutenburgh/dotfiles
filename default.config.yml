@@ -1,5 +1,9 @@
 ---
-# Defaults
+# Defaults that can be override per-host
+
+# common role
+configure_complete_alias: true
+
 configure_vagrant: false
 
 configure_docker: false
