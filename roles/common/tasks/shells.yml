@@ -10,6 +10,7 @@
     - bashrc
     - bash_aliases
     - profile
+    - bash_completion
   tags:
     - bash
     - bashrc

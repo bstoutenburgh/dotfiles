@@ -1,0 +1,37 @@
+# shellcheck shell=bash
+# shellcheck disable=SC1091
+[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/completions/asdf.bash"
+
+# shellcheck disable=SC1090
+command -v doctl >/dev/null 2>&1 && source <(doctl completion bash)
+
+# shellcheck disable=SC1090
+command -v gh >/dev/null 2>&1 && source <(gh completion -s bash)
+
+# somewhere I had things to do for argparse commands
+# but also, https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#adding-ansible-command-shell-completion
+
+# pip bash completion start
+# from pip completion --bash
+_pip_completion()
+{
+    # because this isn't from me...
+    # shellcheck disable=SC2207
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 2>/dev/null ) )
+}
+complete -o default -F _pip_completion pip
+# pip bash completion end
+
+if command -v vagrant >/dev/null ; then
+  vagrant_version=$(vagrant --version | cut -f2 -d\ )
+  # shellcheck disable=SC1090
+  . "/opt/vagrant/embedded/gems/${vagrant_version}/gems/vagrant-${vagrant_version}/contrib/bash/completion.sh"
+fi
+
+# shellcheck disable=SC1090
+command -v yq >/dev/null 2>&1 && source <(yq shell-completion bash)
+
+# TODO: add https://github.com/cykerway/complete-alias
+# kubectl alias, k

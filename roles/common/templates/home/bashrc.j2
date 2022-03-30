@@ -130,5 +130,24 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[0
 # asdf
 [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
 
+# because we handled aliases earlier
+if [ -n ${GRC} ] && [ "$TERM" != dumb ]; then
+  for cmd in kubectl; do
+    command -v ${cmd} >/dev/null && alias "${cmd}"="colourify ${cmd}"
+  done
+  alias k=kubectl
+fi
+
+# and because completion is handled before using asdf for now
+for command in kubectl helm minikube; do
+  # shellcheck disable=SC1090
+  command -v ${command} >/dev/null 2>&1 && source <(${command} completion bash)
+done
+
+# shellcheck disable=SC1090
+command -v npm >/dev/null 2>&1 && source <(npm completion)
+
+command -v terraform >/dev/null 2>&1 && complete -C "$(which terraform)" terraform tf
+
 # Allow untracked local customization
 . $HOME/.bashrc_local
