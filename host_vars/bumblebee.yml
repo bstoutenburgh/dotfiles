@@ -1,6 +1,15 @@
 ---
+additional_terminal_packages:
+  - cowsay
+  - fortune
+
 gui_packages_removal:
   - libreoffice-*
+
+configure_vagrant: true
+vagrant_plugins:
+  - vagrant-ansible-local
+  - vagrant-cowsay-fortune
 
 configure_gaming: true
 

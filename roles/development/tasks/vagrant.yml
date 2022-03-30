@@ -1,0 +1,35 @@
+---
+- name: configure vagrant
+  ansible.builtin.include_role:
+    name: diodonfrost.vagrant
+
+- name: configure vagrant libvirt pre-reqs
+  block:
+    - name: ensure vagrant-libvirt pre-req dependencies
+      become: true
+      ansible.builtin.apt:
+        name:
+          - vagrant
+          - ruby-libvirt
+        state: build-dep
+
+    - name: ensure vagrant-libvirt pre-reqs
+      become: true
+      ansible.builtin.package:
+        name:
+          - dnsmasq-base
+          - ebtables
+          - libguestfs-tools
+          - libvirt-dev
+          - libxml2-dev
+          - libxslt-dev
+          - ruby-dev
+          - zlib1g-dev
+        state: latest
+
+    - name: ensure vagrant-libvirt plugin
+      ansible.builtin.command: vagrant plugin install vagrant-libvirt
+      args:
+        creates: "{{ ansible_user_dir }}/.vagrant.d/gems/*/gems/vagrant-libvirt-*/"
+  when:
+    - configure_kvm

@@ -12,6 +12,7 @@
 
   roles:
     - common
+    - development
     - desktop
     - peripherals
     - {role: chat_clients, tags: ['chat_clients']}

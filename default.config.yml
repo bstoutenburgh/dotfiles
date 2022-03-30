@@ -1,5 +1,7 @@
 ---
 # Defaults
+configure_vagrant: false
+
 configure_docker: false
 configure_gaming: false
 configure_kvm: false

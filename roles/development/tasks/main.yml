@@ -1,0 +1,6 @@
+---
+- name: configure vagrant
+  ansible.builtin.import_tasks: vagrant.yml
+  when: configure_vagrant
+  tags:
+    - vagrant
