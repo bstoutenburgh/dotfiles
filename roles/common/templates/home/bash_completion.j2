@@ -8,9 +8,6 @@ command -v doctl >/dev/null 2>&1 && source <(doctl completion bash)
 # shellcheck disable=SC1090
 command -v gh >/dev/null 2>&1 && source <(gh completion -s bash)
 
-# somewhere I had things to do for argparse commands
-# but also, https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#adding-ansible-command-shell-completion
-
 # pip bash completion start
 # from pip completion --bash
 _pip_completion()
@@ -32,6 +29,16 @@ fi
 
 # shellcheck disable=SC1090
 command -v yq >/dev/null 2>&1 && source <(yq shell-completion bash)
+
+# Pretty much just for python-argcomplete
+# this in combination with creating this directory and writing out the file
+# feels dirty, but is probably slightly better than adding this maybe?
+# source <(activate-global-python-argcomplete --dest -)
+if [[ -d "${HOME}/.bash_completion.d" ]]; then
+  for bcfile in "${HOME}"/.bash_completion.d/*; do
+    . "${bcfile}"
+  done
+fi
 
 # TODO: add https://github.com/cykerway/complete-alias
 # kubectl alias, k

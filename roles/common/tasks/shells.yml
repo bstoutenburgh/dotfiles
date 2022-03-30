@@ -25,3 +25,19 @@
     force: false
   tags:
     - bashrc_local
+
+- name: ensure a bash-completion user dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.bash_completion.d"
+    state: directory
+    mode: 0775
+  tags:
+    - completion
+
+- name: activate global python argcomplete
+  ansible.builtin.command: activate-global-python-argcomplete --user
+  args:
+    creates: "{{ ansible_user_dir }}/.bash_completion.d/python-argcomplete"
+  tags:
+    - completion
+    - python-argcomplete
