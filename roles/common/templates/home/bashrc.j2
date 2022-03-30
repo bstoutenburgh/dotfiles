@@ -156,4 +156,4 @@ command -v terraform >/dev/null 2>&1 && complete -C "$(which terraform)" terrafo
 command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Allow untracked local customization
-. $HOME/.bashrc_local
+. "${HOME}"/.bashrc_local
