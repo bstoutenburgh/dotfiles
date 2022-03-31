@@ -151,6 +151,7 @@ fi
 command -v npm >/dev/null 2>&1 && source <(npm completion)
 
 command -v terraform >/dev/null 2>&1 && complete -C "$(which terraform)" terraform tf
+alias tf=terraform
 
 # Use bat to colorize man pages
 command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
