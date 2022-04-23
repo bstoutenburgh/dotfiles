@@ -12,4 +12,5 @@
   ansible.builtin.apt:
     deb: https://downloads.slack-edge.com/releases/linux/{{ slack_version }}/prod/x64/slack-desktop-{{ slack_version }}-{{ slack_machine_map[ansible_machine] }}.deb # noqa line-length
   when: (_slack_desktop_installed_version.rc == 1) or
-        (_slack_desktop_installed_version.stdout != slack_version)
+        (_slack_desktop_installed_version.stdout is version(slack_version, '<'))
+        # Not sure why I care about a version comparison
