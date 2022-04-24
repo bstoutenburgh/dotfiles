@@ -5,11 +5,11 @@ set -e
 LOCAL_BIN="${HOME}/.local/bin"
 [[ ":$PATH:" != *"${LOCAL_BIN}"* ]] && PATH="${LOCAL_BIN}:${PATH}"
 
-sudo apt-get remove ansible --yes
+sudo dpkg --remove ansible
 sudo apt-get autoremove --yes
 sudo apt-get update
 
-sudo apt-get install --yes git make python3-pip
+sudo apt-get install --yes git make python3-pip python3-venv
 
 python3 -m pip install --user --upgrade pip
 python3 -m pip install --user --upgrade pipx
