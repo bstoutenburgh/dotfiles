@@ -5,8 +5,8 @@ set -e
 LOCAL_BIN="${HOME}/.local/bin"
 [[ ":$PATH:" != *"${LOCAL_BIN}"* ]] && PATH="${LOCAL_BIN}:${PATH}"
 
-sudo dpkg --remove ansible
-sudo apt-get autoremove --yes
+sudo apt-get --remove --yes ansible || true
+sudo apt-get --yes autoremove
 sudo apt-get update
 
 sudo apt-get install --yes git make python3-pip python3-venv
