@@ -1,0 +1,50 @@
+---
+- name: Add tkashkin/gamehub repository from PPA and install its signing key
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:tkashkin/gamehub
+  # https://tkashkin.github.io/projects/gamehub/ lies about Pop!_OS providing com.github.tkashkin.gamehub, at least with 22.04
+  # 0.16.1 is in ubuntu's jammy repo as gamehub while latest is 0.16.3-2 so going with PPA anyway
+  # when:
+  #   - ansible_facts.os_family == "Debian"
+  #   - (ansible_distribution != "Pop!_OS" and ansible_facts['distribution_version'] is version('22.04', '<'))
+
+- name: Install gamehub
+  become: true
+  ansible.builtin.apt:
+    name: com.github.tkashkin.gamehub
+    state: latest
+    update_cache: true
+
+
+# TODO: dconf settings, this is an initial dump from `dconf dump /com/github/tkashkin/gamehub/`
+# [auth/gog]
+# authenticated=true
+
+# [auth/humble]
+# authenticated=true
+
+# [auth/steam]
+# authenticated=true
+
+# [controller]
+# ignored-controllers=@as []
+# known-controllers=@as []
+
+# [saved-state/games-view]
+# style='Grid'
+
+# [saved-state/window]
+# height=720
+# width=1108
+# x=187
+# y=429
+
+# [tweaks]
+# global=@as []
+
+# [ui/appearance]
+# dark-theme=true
+# grid-card-height=215
+# grid-card-width=460
+# list-style=['installed-icon', 'installed-title-bold', 'installed-status', 'uninstalled-icon', 'uninstalled-dim']

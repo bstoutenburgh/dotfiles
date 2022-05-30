@@ -12,6 +12,7 @@ vagrant_plugins:
   - vagrant-cowsay-fortune
 
 configure_gaming: true
+configure_gamehub: true
 
 configure_solaar: true
 solaar_rules:
