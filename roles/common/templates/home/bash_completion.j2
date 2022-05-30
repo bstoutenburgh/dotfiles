@@ -25,9 +25,12 @@ complete -o default -F _pip_completion pip
 # pip bash completion end
 
 if command -v vagrant >/dev/null ; then
-  vagrant_version=$(vagrant --version | cut -f2 -d\ )
-  # shellcheck disable=SC1090
-  . "/opt/vagrant/embedded/gems/${vagrant_version}/gems/vagrant-${vagrant_version}/contrib/bash/completion.sh"
+  if [ ! -f /usr/share/bash-completion/completions/vagrant ]; then
+    # Ubuntu provides vagrant which puts things in different locations but provides completion where it should be
+    vagrant_version=$(vagrant --version | cut -f2 -d\ )
+    # shellcheck disable=SC1090
+    . "/opt/vagrant/embedded/gems/${vagrant_version}/gems/vagrant-${vagrant_version}/contrib/bash/completion.sh"
+  fi
 fi
 
 # shellcheck disable=SC1090
