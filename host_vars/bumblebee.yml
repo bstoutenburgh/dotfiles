@@ -24,3 +24,7 @@ configure_kvm: true
 additional_libvirt_packages:
   - gnome-boxes
   - virt-manager
+
+configure_docker: true
+configure_podman: false
+docker_rootless_enable: true

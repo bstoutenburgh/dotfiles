@@ -1,0 +1,82 @@
+---
+- name: import docker gpg key
+  become: true
+  ansible.builtin.apt_key:
+    # url: "https://download.docker.com/linux/{{ ansible_distribution|lower }}/gpg"
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+    state: present
+
+- name: apt docker.list
+  become: true
+  ansible.builtin.apt_repository:
+    # deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    filename: docker
+    state: present
+    update_cache: true
+
+- name: install docker engine packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    state: latest
+
+- name: ensure user is added to the docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+
+- name: switch to rootless mode
+  block:
+    - name: Setting fact for user systemd units
+      ansible.builtin.set_fact:
+        docker_rootless_systemd_config_dir: "{{ lookup('env','XDG_CONFIG_HOME') or ansible_user_dir + '/.config' }}"
+
+    - name: disable the rootfull service and socket
+      become: true
+      ansible.builtin.service:
+        name: "{{ item }}"
+        enabled: false
+        state: stopped
+      with_items:
+        - docker.service
+        - docker.socket
+
+    - name: install rootless prerequisites
+      become: true
+      ansible.builtin.apt:
+        name: "{{ docker_rootless_packages }}"
+        state: latest
+
+    - name: ensure user systemd units dir
+      ansible.builtin.file:
+        path: "{{ docker_rootless_systemd_config_dir }}/systemd/user"
+        state: directory
+        recurse: true
+
+    - name: create user systemd unit file
+      ansible.builtin.template:
+        src: docker.service.j2
+        dest: "{{ docker_rootless_systemd_config_dir }}/systemd/user/docker.service"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: 0664
+      register: systemd_unit
+
+    - name: reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+        scope: user
+      when: systemd_unit.changed
+
+    - name: enable systemd service
+      ansible.builtin.systemd:
+        name: docker.service
+        state: started
+        enabled: true
+        scope: user
+  when:
+    - docker_rootless_enable

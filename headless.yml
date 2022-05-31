@@ -14,3 +14,4 @@
   roles:
     - common
     - development
+    - {role: docker, tags: ['docker'], when: configure_docker}

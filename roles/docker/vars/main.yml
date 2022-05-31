@@ -1,0 +1,18 @@
+---
+
+# order doesn't matter but for maintenace it's pre-reqs first
+docker_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - containerd.io
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose-plugin
+
+docker_rootless_packages:
+  - uidmap
+  - fuse-overlayfs
+  - slirp4netns
+  - dbus-user-session

@@ -156,5 +156,9 @@ alias tf=terraform
 # Use bat to colorize man pages
 command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+{% if configure_docker and docker_rootless_enable %}
+export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/docker.sock
+{% endif %}
+
 # Allow untracked local customization
 . "${HOME}"/.bashrc_local
