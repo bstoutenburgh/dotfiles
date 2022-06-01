@@ -78,5 +78,29 @@
         state: started
         enabled: true
         scope: user
+
+    - name: ensure user@.service.d systemd drop-in directory
+      become: true
+      ansible.builtin.file:
+        path: /etc/systemd/system/user@.service.d
+        state: directory
+        recurse: true
+
+    - name: Create delegation config file
+      become: true
+      ansible.builtin.template:
+        src: delegate.conf.j2
+        dest: /etc/systemd/system/user@.service.d/delegate.conf
+        owner: root
+        group: root
+        mode: 0644
+      register: delegate_conf
+
+    - name: reload systemd
+      become: true
+      ansible.builtin.systemd:
+        daemon_reload: true
+      when: delegate_conf.changed
+
   when:
     - docker_rootless_enable
