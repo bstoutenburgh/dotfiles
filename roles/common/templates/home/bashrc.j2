@@ -136,7 +136,7 @@ if [ -n "${GRC}" ] && [ "$TERM" != dumb ]; then
 fi
 
 # and because completion is handled before using asdf for now
-for command in kubectl helm minikube; do
+for command in kubectl helm istioctl kind minikube oc; do
   # shellcheck disable=SC1090
   command -v ${command} >/dev/null 2>&1 && source <(${command} completion bash)
 done
