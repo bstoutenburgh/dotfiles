@@ -1,16 +1,25 @@
-# TODO: Do not hardcode x64
 ---
-- name: check slack-desktop version is installed
-  ansible.builtin.command: dpkg-query --showformat='${Version}' --show slack-desktop
-  register: _slack_desktop_installed_version
-  changed_when: false
-  check_mode: false
-  failed_when: false
+- name: get path of armored slack signing key
+  ansible.builtin.set_fact:
+    slack_signing_key: "{{ lookup('fileglob', 'slack.key') }}" # from /etc/cron.daily/slack
 
-- name: install slack
+- name: add slack signing key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ slack_signing_key }}" > /etc/apt/trusted.gpg.d/packagecloud.io-slack.gpg
+    creates: /etc/apt/trusted.gpg.d/packagecloud.io-slack.gpg
+  changed_when: false
+
+- name: add apt slack.list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+    filename: slack
+    state: present
+    update_cache: true
+
+- name: install slack-desktop
   become: true
   ansible.builtin.apt:
-    deb: https://downloads.slack-edge.com/releases/linux/{{ slack_version }}/prod/x64/slack-desktop-{{ slack_version }}-{{ slack_machine_map[ansible_machine] }}.deb # noqa yaml[line-length]
-  when: (_slack_desktop_installed_version.rc == 1) or
-        (_slack_desktop_installed_version.stdout is version(slack_version, '<'))
-        # Not sure why I care about a version comparison
+    name: slack-desktop
+    state: latest
