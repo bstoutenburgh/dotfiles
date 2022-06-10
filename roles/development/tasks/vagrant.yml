@@ -1,9 +1,31 @@
 ---
-- name: configure vagrant
-  ansible.builtin.include_role:
-    name: diodonfrost.vagrant
+- name: get path of hashicorp apt signing key
+  ansible.builtin.set_fact:
+    hashicorp_apt_signing_key: "{{ lookup('fileglob', 'hashicorp_apt.gpg') }}" # https://apt.releases.hashicorp.com/gpg
 
-- name: configure vagrant libvirt pre-reqs
+- name: add hashicorp apt signing key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ hashicorp_apt_signing_key }}" > /etc/apt/trusted.gpg.d/hashicorp.gpg
+    creates: /etc/apt/trusted.gpg.d/hashicorp.gpg
+  changed_when: false
+
+- name: add hashicorp apt source
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    filename: hashicorp
+    state: present
+    update_cache: true
+
+# Ubuntu does their ubuntu thing so their packages will take priority unless you mark 2.2.19 over 2.2.19+dfsg-1ubuntu1 or something, but oh well
+- name: install vagrant
+  become: true
+  ansible.builtin.apt:
+    name: vagrant
+    state: latest
+
+- name: configure vagrant-libvirt
   block:
     - name: ensure vagrant-libvirt pre-req dependencies
       become: true

@@ -3,6 +3,5 @@ collections:
 
 roles:
   - name: andrewrothstein.yq
-  - name: diodonfrost.vagrant
   - name: gantsign.bat
   - name: staticdev.signal
