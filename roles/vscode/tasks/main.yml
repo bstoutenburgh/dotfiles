@@ -1,0 +1,57 @@
+---
+# Not making this up, https://code.visualstudio.com/docs/setup/linux
+# though some filenames changed based on what's installed already
+- name: get path of armored microsoft signing key
+  ansible.builtin.set_fact:
+    microsof_signing_key: "{{ lookup('fileglob', 'microsoft.asc') }}" # https://packages.microsoft.com/keys/microsoft.asc
+    microsoft_trusted_keyring_file: /etc/apt/trusted.gpg.d/microsoft.gpg
+
+- name: add microsoft signing key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ microsof_signing_key }}" > "{{ microsoft_trusted_keyring_file }}"
+    creates: "{{ microsoft_trusted_keyring_file  }}"
+  changed_when: false
+
+# yes http:// not https://, vscode manages this file adding the http:// line
+# might need to create an apt preferences file at some point as well
+# https://code.visualstudio.com/docs/setup/linux#_conflicts-with-vs-code-packages-from-other-repositories
+- name: add apt vscode.list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
+    filename: vscode
+    state: present
+    update_cache: true
+
+- name: install code
+  become: true
+  ansible.builtin.apt:
+    name: code
+    state: latest
+
+# WARNING: untested territory because you should be using settings sync
+
+- name: configure settings and extensions
+  block:
+    # blindly hoping this is enough to initialize ~/.config/Code/User
+    - name: register currently installed code extensions
+      ansible.builtin.command:
+        cmd: code --list-extensions
+      register: vscode_installed_extensions
+      changed_when: false
+
+    - name: install Code extensions
+      ansible.builtin.command:
+        cmd: "code --install-extensions {{ item }}"
+      with_items: "{{ vscode_extensions | union(vscode_additional_extensions) | unique }}"
+      when: "item not in vscode_installed_extensions.stdout_lines"
+
+    - name: write out user settings.json file
+      ansible.builtin.template:
+        src: settings.json.j2
+        dest: "{{ ansible_user_dir }}/.config/Code/User/settings.json"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: 0664
+  when: not vscode_settings_sync

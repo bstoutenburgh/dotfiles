@@ -14,4 +14,6 @@ configure_gamehub: false
 
 configure_kvm: false
 
+configure_vscode: false
+
 desktop_dark_mode: false

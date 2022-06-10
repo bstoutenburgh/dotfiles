@@ -29,4 +29,6 @@ configure_docker: true
 configure_podman: false
 docker_rootless_enable: true
 
+configure_vscode: true
+
 desktop_dark_mode: true
