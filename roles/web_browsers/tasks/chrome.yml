@@ -36,3 +36,12 @@
   ansible.builtin.file:
     dest: "/tmp/{{ google_chrome_package }}"
     state: absent
+
+- name: create a dark mode desktop entry
+  ansible.builtin.template:
+    src: google-chrome.desktop.j2
+    dest: "{{ ansible_user_dir }}/.local/share/applications/google-chrome.desktop"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0775
+  when: desktop_dark_mode

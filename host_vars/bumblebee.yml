@@ -28,3 +28,5 @@ additional_libvirt_packages:
 configure_docker: true
 configure_podman: false
 docker_rootless_enable: true
+
+desktop_dark_mode: true
