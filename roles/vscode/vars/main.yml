@@ -1,9 +1,7 @@
 vscode_extensions:
   ## General
-  - dhoeric.ansible-vault
   - GitHub.vscode-pull-request-github
   - Gruntfuggly.todo-tree
-  - henriiik.vscode-sort
   - Kelvin.vscode-sshfs
   - mechatroner.rainbow-csv
   - ms-azuretools.vscode-docker
@@ -13,8 +11,6 @@ vscode_extensions:
   - ms-vscode.makefile-tools
   - shardulm94.trailing-spaces
   - streetsidesoftware.code-spell-checker
-  - tomoki1207.selectline-statusbar
-  - ybaumes.highlight-trailing-white-spaces
 
 
   ## Markdown items
@@ -29,13 +25,9 @@ vscode_extensions:
   - DavidAnson.vscode-markdownlint
   - yzhang.markdown-all-in-one
 
-  ## Linux
-  - coolbear.systemd-unit-file
-  - nico-castell.linux-desktop-file
-
 
   ## Language helpers
-  - DotJoshJohnson.xml
+  - dhoeric.ansible-vault
   - golang.go
   - hashicorp.terraform
   - ms-python.python
