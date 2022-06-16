@@ -1,0 +1,24 @@
+---
+- name: install tilix
+  become: true
+  ansible.builtin.package:
+    name: tilix
+    state: latest
+
+- name: configure tilix settings
+  community.general.dconf:
+    key: /com/gexperts/Tilix/{{ item.key }}
+    value: "{{ item.value }}"
+    state: present
+  loop: "{{ tilix_settings }}"
+
+# bookmarks and themes go in $XDG_CONFIG_HOME/.tilix, one day I might be so advanced
+
+# From their README on transitioning from Terminix to Tilix, there shouldn't be
+# a problem with creating this profile like this
+
+- name: configure tilix profile settings
+  community.general.dconf:
+    key: /com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d/{{ item.key }}
+    value: "{{ item.value }}"
+  loop: "{{ tilix_profile_settings }}"

@@ -13,3 +13,25 @@
     name: "{{ gui_packages_removal }} "
     state: absent
   when: gui_packages_removal is defined
+
+- name: configure tilix terminal emulator
+  ansible.builtin.import_tasks: tilix.yml
+  when: desktop_configure_tilix
+  tags:
+    - tilix
+    - terminal-emulator
+
+- name: configure the default terminal emulator
+  community.general.alternatives:
+    name: x-terminal-emulator
+    path: "{{ terminal_emulator_paths[desktop_default_terminal_emulator] }}"
+    priority: 30
+  tags:
+    - terminal-emulator
+
+- name: configure gnome-shell
+  ansible.builtin.import_tasks: gnome.yml
+  when: desktop_configure_gnome
+  tags:
+    - gnome
+    - gnome-shell

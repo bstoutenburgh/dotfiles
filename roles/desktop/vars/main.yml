@@ -1,3 +1,27 @@
 ---
 common_gui_packages:
   - xdotool
+
+terminal_emulator_paths:
+  gnome-terminal: /usr/bin/gnome-terminal.wrapper
+  tilix: /usr/bin/tilix.wrapper
+
+
+# TODO: restructure this to something more tweakable
+tilix_settings:
+  - { key: copy-on-select, value: "true" }
+  - { key: paste-strip-trailing-whitespace, value: "true" }
+  - { key: quake-height-percent, value: "25" }
+  - { key: quake-hide-headerbar, value: "true" }
+  - { key: quake-specific-monitor, value: "0" }
+  - { key: use-tabs, value: "true" }
+
+tilix_profile_settings:
+  - { key: background-transparency-percent, value: "8" }
+  - { key: scrollback-unlimited, value: "true" }
+  - { key: visible-name, value: "'Default'" }
+
+__gnome_keybindings_custom0:
+  - { key: binding, value: "'<Primary><Super>grave'" }  # Ctrl+Super+`
+  - { key: command, value: "'tilix --quake'" }
+  - { key: name, value: "'Tilix Quake mode'" }
