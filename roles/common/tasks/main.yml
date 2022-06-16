@@ -8,12 +8,8 @@
   tags:
     - git
 
-- name: download asdf
-  ansible.builtin.git:
-    clone: true
-    repo: git@github.com:asdf-vm/asdf.git
-    dest: "{{ ansible_user_dir }}/.asdf"
-    version: "{{ asdf_version }}"
+- name: configure asdf
+  import_tasks: asdf.yml
   tags:
     - asdf
 

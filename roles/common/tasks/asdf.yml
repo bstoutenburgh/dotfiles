@@ -1,0 +1,25 @@
+---
+- name: enable asdf updates in case disabled
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.asdf/asdf_updates_disabled"
+    state: absent
+  failed_when: false
+  changed_when: false
+
+- name: download asdf
+  ansible.builtin.git:
+    clone: true
+    repo: git@github.com:asdf-vm/asdf.git
+    dest: "{{ ansible_user_dir }}/.asdf"
+    version: "{{ asdf_version }}"
+
+- name: disable asdf updates
+  ansible.builtin.copy:
+    content: ""
+    dest: "{{ ansible_user_dir }}/.asdf/asdf_updates_disabled"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664
+    force: false
+  changed_when: false
+  when: asdf_disable_updates
