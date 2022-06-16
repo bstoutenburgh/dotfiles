@@ -44,4 +44,4 @@
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     mode: 0775
-  when: desktop_dark_mode
+  when: google_chrome_dark_mode

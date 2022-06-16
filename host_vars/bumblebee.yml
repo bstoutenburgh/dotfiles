@@ -31,4 +31,4 @@ docker_rootless_enable: true
 
 configure_vscode: true
 
-desktop_dark_mode: true
+google_chrome_dark_mode: true
