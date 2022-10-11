@@ -54,7 +54,9 @@ else
   pipx upgrade --include-injected ansible
 fi
 pipx inject ansible argcomplete
-pipx inject ansible psutil       # gnome-* for gsettings commands
+# this is getting pulled out generically, it requires gcc and python dev package(s) to be installed
+# it should be handled in the ansible role that uses it
+# pipx inject ansible psutil       # gnome-* for gsettings commands
 
 # could make this clone or pull based on presense but that would be making lots of assumptions...
 REPO_DIR="${REPO_DIR:-${HOME}/repos}"
