@@ -1,6 +1,7 @@
 ---
 common_terminal_packages:
   - bash-completion
+  - bat
   - colordiff
   - curl
   - gnupg
@@ -8,7 +9,7 @@ common_terminal_packages:
   - gzip
   - htop
   - jq
-  - mtr-tiny
+  - mtr
   - multitail
   - screen
   - tar

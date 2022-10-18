@@ -19,6 +19,8 @@ Assumptions made (and some checked) before the `bootstrap.sh` script should be r
 \curl -sSL https://raw.githubusercontent.com/maristgeek/dotfiles/main/scripts/bootstrap.sh  | bash
 ```
 
+:warning: If fingerprint auth is enabled any task that uses `become` will timeout, disable fingerprint auth in order to run playbooks :warning:
+
 ## Notable Inspirations
 
 - https://github.com/dolph/dotfiles

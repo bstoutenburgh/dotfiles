@@ -1,8 +1,8 @@
 alias diff=colordiff
 alias please=sudo
 
-GRC=$(command -v grc)
-if [ -n ${GRC} ] && [ "$TERM" != dumb ]; then
+if [ command -v grc >/dev/null 2>&1 ] && [ "$TERM" != dumb ]; then
+  GRC=$(command -v grc)
   alias colourify="$GRC -es --colour=auto"
   alias configure='colourify ./configure'
   alias iptables="sudo ${GRC} -es --colour=auto iptables"

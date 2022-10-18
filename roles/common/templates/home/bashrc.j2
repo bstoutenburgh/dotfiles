@@ -1,12 +1,23 @@
 #!/bin/bash
 
-# TODO: heavily edit to not be the Ubuntu defaults
+# Messy and largely taken from Ubuntu's default
 
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+# Source global definitions (fedora)
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -94,6 +105,7 @@ alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
+# TODO: copy fedora's __vte_prompt_command and friends, make that standard across all linux setups though WSL probably complicates that, but this is broken for ubuntu WSL and pop!_os installs too
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
@@ -123,6 +135,9 @@ GIT_PS1_SHOWSTASHSTATE=nonempty
 GIT_PS1_SHOWUNTRACKEDFILES=nonempty
 GIT_PS1_SHOWUPSTREAM=auto
 GIT_PS1_SHOWUPSTREAM=verbose
+if ! type __git_ps1 &>/dev/null && [ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+  . /usr/share/git-core/contrib/completion/git-prompt.sh
+fi
 #PS1="[\[\033[32m\]\w]\[\033[0m\]\$(__git_ps1)\[\033[1;36m\] \u@\h\[\033[32m\]$ \[\033[0m\]"
 #PS1="[\[\033[32m\]\w\[\033[0m\]]\$(__git_ps1)\[\033[0m\] \u@\h\$ "
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1)\$ '
@@ -136,6 +151,7 @@ if [ -n "${GRC}" ] && [ "$TERM" != dumb ]; then
 fi
 
 # and because completion is handled before using asdf for now
+# TODO: why isn't asdf before completion? what breaks if completion is second to last before .bashrc_local?
 for command in kubectl helm istioctl kind minikube oc; do
   # shellcheck disable=SC1090
   command -v ${command} >/dev/null 2>&1 && source <(${command} completion bash)
@@ -154,7 +170,13 @@ command -v terraform >/dev/null 2>&1 && complete -C "$(which terraform)" terrafo
 alias tf=terraform
 
 # Use bat to colorize man pages
-command -v bat >/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+command -v bat >/dev/null && {
+  # WARNING, bold is no longer bold but I think the syntax highlighting is worth that loss
+  # https://github.com/sharkdp/bat/issues/652
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANROFFOPT="-c"
+}
+
 
 {% if configure_docker and docker_rootless_enable %}
 export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/docker.sock

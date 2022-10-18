@@ -25,15 +25,11 @@
 
 - name: install common terminal apps
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
     state: latest
   tags:
     - apt
-
-- name: install bat
-  ansible.builtin.include_role:
-    name: gantsign.bat
 
 - name: install yq
   ansible.builtin.include_role:
