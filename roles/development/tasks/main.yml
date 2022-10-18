@@ -1,13 +1,13 @@
 ---
-- name: configure vagrant
-  ansible.builtin.import_tasks: vagrant.yml
-  when: configure_vagrant
-  tags:
-    - vagrant
-
 - name: inject ansible-lint
   ansible.builtin.command: pipx inject --include-apps --include-deps ansible ansible-lint
   args:
     creates: "{{ lookup('env', 'PIPX_BIN_DIR') | default(ansible_user_dir + '/.local/bin', true) }}/ansible-lint"
   tags:
     - ansible-lint
+
+- name: configure vagrant
+  ansible.builtin.import_tasks: vagrant.yml
+  when: configure_vagrant
+  tags:
+    - vagrant
