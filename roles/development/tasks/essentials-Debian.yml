@@ -1,0 +1,6 @@
+---
+- name: install build-essential
+  become: true
+  ansible.builtin.package:
+    name: build-essential
+    state: latest
