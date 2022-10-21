@@ -1,16 +1,18 @@
 alias diff=colordiff
 alias please=sudo
 
-if [ command -v grc >/dev/null 2>&1 ] && [ "$TERM" != dumb ]; then
+# /etc/profile.d/grc.sh could use some updates compared to its fish & zsh
+# counterparts, a PR upstream might be nice
+if command -v grc >/dev/null && [ "$TERM" != dumb ]; then
   GRC=$(command -v grc)
   alias colourify="$GRC -es --colour=auto"
   alias configure='colourify ./configure'
   alias iptables="sudo ${GRC} -es --colour=auto iptables"
   grc_commands=(blkid df dig dnf docker docker-compose docker-machine du env \
                 findmnt free g++ gcc getfacl getsebool go id ifconfig iostat \
-                ip iwconfig journalctl kubectl last lastlog lsattr lsblk lsmod \
-                lsof lspci mount mtr netstat nmap ntpdate ping ps pv sar \
-                semanage showmount ss stat sysctl systemctl tcpdump traceroute \
+                ip iwconfig journalctl last lastlog lsattr lsblk lsmod lsof \
+                lspci mount mtr netstat nmap ntpdate ping ps pv sar semanage \
+                showmount ss stat sysctl systemctl tcpdump traceroute \
                 traceroute6 tune2fs ulimit uptime vmstat w wdiff who whois )
   for cmd in ${grc_commands[@]}; do
     command -v ${cmd} >/dev/null && alias "${cmd}"="colourify ${cmd}"
