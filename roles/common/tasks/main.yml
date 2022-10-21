@@ -31,6 +31,16 @@
   tags:
     - apt
 
+# Ugh Debian/bacula
+- name: create bat -> batcat symlink
+  ansible.builtin.file:
+    src: /usr/bin/batcat
+    dest: "{{ ansible_user_dir }}/.local/bin/bat"
+    state: link
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - bat
+
 - name: install yq
   ansible.builtin.include_role:
     name: andrewrothstein.yq
