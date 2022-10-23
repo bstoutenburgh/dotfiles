@@ -8,7 +8,9 @@ if command -v grc >/dev/null && [ "$TERM" != dumb ]; then
   alias colourify="$GRC -es --colour=auto"
   alias configure='colourify ./configure'
   alias iptables="sudo ${GRC} -es --colour=auto iptables"
-  grc_commands=(blkid df dig dnf docker docker-compose docker-machine du env \
+  # these have been removed from upstream's list for disliking the change
+  #   - dnf
+  grc_commands=(blkid df dig docker docker-compose docker-machine du env \
                 findmnt free g++ gcc getfacl getsebool go id ifconfig iostat \
                 ip iwconfig journalctl last lastlog lsattr lsblk lsmod lsof \
                 lspci mount mtr netstat nmap ntpdate ping ps pv sar semanage \
