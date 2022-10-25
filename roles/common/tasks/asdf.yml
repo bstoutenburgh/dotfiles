@@ -55,6 +55,8 @@
   when: asdf_plugins | length > 0
 
 - name: set global app versions"
-  ansible.builtin.command: "bash -lc 'source {{ asdf_dir }}/asdf.sh && asdf global {{ item.name }} {{ item.global | default(item.versions | difference(item.delete_versions|default([])) | sort | first) }}'"
+  ansible.builtin.command:
+    "bash -lc 'source {{ asdf_dir }}/asdf.sh && \
+    asdf global {{ item.name }} {{ item.global | default(item.versions | difference(item.delete_versions|default([])) | sort | first) }}'"
   when: item.versions is defined
   with_items: "{{ asdf_plugins }}"
