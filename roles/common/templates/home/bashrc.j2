@@ -194,6 +194,7 @@ command -v bat >/dev/null && {
       "${cmd}" --help 2>&1 | bat --plain --language=help
     fi
   }
+  complete -F _command bathelp
 }
 
 
