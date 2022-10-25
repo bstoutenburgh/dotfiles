@@ -170,12 +170,21 @@ command -v npm >/dev/null 2>&1 && source <(npm completion)
 command -v terraform >/dev/null 2>&1 && complete -C "$(which terraform)" terraform tf
 alias tf=terraform
 
-# Use bat to colorize man pages
 command -v bat >/dev/null && {
+  # bash completion
+  # assuming installed through asdf at this point
+  . $(asdf where bat)/autocomplete/bat.bash
+
+  # colorize man pages
   # WARNING, bold is no longer bold but I think the syntax highlighting is worth that loss
   # https://github.com/sharkdp/bat/issues/652
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   export MANROFFOPT="-c"
+
+  # helper functions
+  batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+  }
 
   bathelp() {
     local cmd="$1"
@@ -185,9 +194,6 @@ command -v bat >/dev/null && {
       "${cmd}" --help 2>&1 | bat --plain --language=help
     fi
   }
-
-  # assuming installed through asdf at this point
-  . $(asdf where bat)/autocomplete/bat.bash
 }
 
 
