@@ -1,7 +1,6 @@
 ---
 common_terminal_packages:
   - bash-completion
-  - bat
   - colordiff
   - curl
   - gnupg

@@ -1,7 +1,7 @@
 ---
 - name: enable asdf updates in case disabled
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.asdf/asdf_updates_disabled"
+    path: "{{ asdf_dir }}/asdf_updates_disabled"
     state: absent
   failed_when: false
   changed_when: false
@@ -10,16 +10,51 @@
   ansible.builtin.git:
     clone: true
     repo: git@github.com:asdf-vm/asdf.git
-    dest: "{{ ansible_user_dir }}/.asdf"
+    dest: "{{ asdf_dir }}"
     version: "{{ asdf_version }}"
 
 - name: disable asdf updates
   ansible.builtin.copy:
     content: ""
-    dest: "{{ ansible_user_dir }}/.asdf/asdf_updates_disabled"
+    dest: "{{ asdf_dir }}/asdf_updates_disabled"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     mode: 0664
     force: false
   changed_when: false
   when: asdf_disable_updates
+
+- name: install asdf plugins
+  ansible.builtin.command: "bash -lc 'source {{ asdf_dir }}/asdf.sh && asdf plugin-add {{ item.name }} {{ item.repository | default() }}'"
+  args:
+    creates: "{{ asdf_dir }}/plugins/{{ item.name }}"
+  with_items: "{{ asdf_plugins }}"
+  when: asdf_plugins | length > 0
+
+- name: install asdf plugin apps
+  ansible.builtin.command: "bash -lc 'source {{ asdf_dir }}/asdf.sh && asdf install {{ item.0.name }} {{ item.1 }}'"
+  args:
+    # repeats if version is latest, little irritating but harmless
+    creates: "{{ asdf_dir }}/installs/{{ item.0.name }}/{{ item.1 }}"
+  with_subelements:
+    - "{{ asdf_plugins }}"
+    - versions
+    - flags:
+      skip_missing: true
+  when: asdf_plugins | length > 0
+
+- name: remove asdf app versions to be removed
+  ansible.builtin.command: "bash -lc 'source {{ asdf_dir }}/asdf.sh && asdf uninstall {{ item.0.name }} {{ item.1 }}'"
+  args:
+    removes: "{{ asdf_dir }}/installs/{{ item.0.name }}/{{ item.1 }}"
+  with_subelements:
+    - "{{ asdf_plugins }}"
+    - delete_versions
+    - flags:
+      skip_missing: true
+  when: asdf_plugins | length > 0
+
+- name: set global app versions"
+  ansible.builtin.command: "bash -lc 'source {{ asdf_dir }}/asdf.sh && asdf global {{ item.name }} {{ item.global | default(item.versions | difference(item.delete_versions|default([])) | sort | first) }}'"
+  when: item.versions is defined
+  with_items: "{{ asdf_plugins }}"
