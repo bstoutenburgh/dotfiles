@@ -1,0 +1,11 @@
+---
+# TODO: does docker need to be removed?
+# assuming Fedora so little to no games needed
+
+- name: install podman packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ podman_packages }}"
+    state: latest
+
+# podman is running out of the box on Fedora and seems rootless so more to add later?

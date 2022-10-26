@@ -1,0 +1,5 @@
+---
+# simply because I want to be in front of a Debian system to write this
+- name: Abort installing podman
+  ansible.builtin.fail:
+    msg: "Only going to support docker on {{ ansible_facts['os_family'] }} for now"

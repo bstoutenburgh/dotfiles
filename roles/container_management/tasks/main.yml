@@ -1,0 +1,7 @@
+---
+# TODO: docker tasks could likely following a flow more closely resembling the
+# geerlingguy.docker role (include os_family-specific tasks then have the shared
+# tasks), probably initially avoided because pop!_os support is odd and no
+# option for rootless setup yet
+- name: configure appropriate container engine
+  ansible.builtin.include_tasks: "{{ container_engine }}-{{ ansible_facts['os_family'] }}.yml"

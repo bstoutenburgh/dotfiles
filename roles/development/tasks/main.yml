@@ -1,9 +1,7 @@
 ---
-- name: configure vagrant
-  ansible.builtin.import_tasks: vagrant.yml
-  when: configure_vagrant
-  tags:
-    - vagrant
+# probably overkill and something I want to not assume on servers but for now...
+- name: configure essential dev tools
+  ansible.builtin.include_tasks: "essentials-{{ ansible_facts['os_family'] }}.yml"
 
 - name: inject ansible-lint
   ansible.builtin.command: pipx inject --include-apps --include-deps ansible ansible-lint
@@ -11,3 +9,10 @@
     creates: "{{ lookup('env', 'PIPX_BIN_DIR') | default(ansible_user_dir + '/.local/bin', true) }}/ansible-lint"
   tags:
     - ansible-lint
+
+# TODO: move to a role (virtualization?) used by the desktop playbook
+# - name: configure vagrant
+  # ansible.builtin.import_tasks: vagrant.yml
+  # when: configure_vagrant
+  # tags:
+    # - vagrant

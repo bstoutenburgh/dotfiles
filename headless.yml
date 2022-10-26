@@ -14,4 +14,4 @@
   roles:
     - common
     - development
-    - {role: docker, tags: ['docker'], when: configure_docker}
+    - {role: container_management, tags: ['containers'], when: configure_container_management }

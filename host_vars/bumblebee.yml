@@ -25,8 +25,8 @@ additional_libvirt_packages:
   - gnome-boxes
   - virt-manager
 
-configure_docker: true
-configure_podman: false
+configure_container_management: true
+container_engine: docker
 docker_rootless_enable: true
 
 configure_vscode: true

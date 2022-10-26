@@ -1,0 +1,6 @@
+---
+- name: install Development Tools package group
+  become: true
+  ansible.builtin.package:
+    name: "@Development Tools"
+    state: latest

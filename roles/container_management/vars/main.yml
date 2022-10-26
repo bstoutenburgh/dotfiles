@@ -16,3 +16,9 @@ docker_rootless_packages:
   - fuse-overlayfs
   - slirp4netns
   - dbus-user-session
+
+podman_packages:
+  - buildah
+  - podman
+  # disabled for now, broken in fedora 37 beta
+  # - podman-docker

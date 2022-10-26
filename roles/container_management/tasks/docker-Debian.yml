@@ -1,4 +1,6 @@
 ---
+# TODO: does podman need to be removed if installed?
+
 - name: import docker gpg key
   become: true
   ansible.builtin.apt_key:
@@ -30,10 +32,12 @@
     append: true
 
 - name: switch to rootless mode
+  when:
+    - docker_rootless_enable
   block:
     - name: Setting fact for user systemd units
       ansible.builtin.set_fact:
-        docker_rootless_systemd_config_dir: "{{ lookup('env','XDG_CONFIG_HOME') or ansible_user_dir + '/.config' }}"
+        docker_rootless_systemd_config_dir: "{{ lookup('env', 'XDG_CONFIG_HOME') or ansible_user_dir + '/.config' }}"
 
     - name: disable the rootfull service and socket
       become: true
@@ -101,6 +105,3 @@
       ansible.builtin.systemd:
         daemon_reload: true
       when: delegate_conf.changed
-
-  when:
-    - docker_rootless_enable
