@@ -1,13 +1,12 @@
 ---
-common_gui_packages:
-  - dconf-editor
+common_gui_packages: []
 
 terminal_emulator_paths:
   gnome-terminal: /usr/bin/gnome-terminal.wrapper
   tilix: /usr/bin/tilix.wrapper
 
 
-# TODO: restructure this to something more tweakable
+# TODO: restructure this to something more tweakable?
 tilix_settings:
   - { key: copy-on-select, value: "true" }
   - { key: paste-strip-trailing-whitespace, value: "true" }
@@ -18,7 +17,9 @@ tilix_settings:
 
 tilix_profile_settings:
   - { key: background-transparency-percent, value: "8" }
+  - { key: dim-transparency-percent, value: "25" }
   - { key: scrollback-unlimited, value: "true" }
+  - { key: use-theme-colors, value: "true" }
   - { key: visible-name, value: "'Default'" }
 
 __gnome_keybindings_custom0:

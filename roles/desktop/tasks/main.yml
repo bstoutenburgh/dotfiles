@@ -22,6 +22,8 @@
     - terminal-emulator
 
 - name: configure the default terminal emulator
+  # Ubuntu/Pop!_OS has this, Fedora 37 does not...
+  when: ansible_facts['os_family'] == "Debian"
   community.general.alternatives:
     name: x-terminal-emulator
     path: "{{ terminal_emulator_paths[desktop_default_terminal_emulator] }}"
