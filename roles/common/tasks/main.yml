@@ -1,4 +1,13 @@
 ---
+- name: install common terminal apps
+  become: true
+  ansible.builtin.package:
+    name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
+    state: latest
+  tags:
+    - apt
+    - dnf
+
 - name: configure shells
   import_tasks: shells.yml
   tags: shells
@@ -23,13 +32,6 @@
   tags:
     - complete-alias
 
-- name: install common terminal apps
-  become: true
-  ansible.builtin.package:
-    name: "{{ common_terminal_packages | union(additional_terminal_packages | default([])) | unique }}"
-    state: latest
-  tags:
-    - apt
 
 - name: install yq
   ansible.builtin.include_role:
