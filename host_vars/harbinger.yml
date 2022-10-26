@@ -1,0 +1,5 @@
+---
+configure_container_management: true
+container_engine: podman
+
+configure_kvm: true

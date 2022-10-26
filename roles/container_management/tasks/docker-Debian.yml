@@ -1,4 +1,6 @@
 ---
+# TODO: does podman need to be removed if installed?
+
 - name: import docker gpg key
   become: true
   ansible.builtin.apt_key:

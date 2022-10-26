@@ -6,8 +6,7 @@ configure_complete_alias: true
 
 configure_vagrant: false
 
-configure_docker: false
-configure_podman: false
+configure_container_management: false
 
 configure_gaming: false
 configure_gamehub: false

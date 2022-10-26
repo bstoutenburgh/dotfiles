@@ -1,0 +1,6 @@
+---
+# Going to assume Fedora only ;)
+
+- name: Abort installing docker
+  ansible.builtin.fail:
+    msg: "Only going to support podman on {{ ansible_facts['os_family'] }} for now"
