@@ -1,6 +1,6 @@
 ---
 common_gui_packages:
-  - xdotool
+  - dconf-editor
 
 terminal_emulator_paths:
   gnome-terminal: /usr/bin/gnome-terminal.wrapper

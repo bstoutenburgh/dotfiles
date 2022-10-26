@@ -1,5 +1,20 @@
 ---
+additional_terminal_packages:
+  - lshw
+  - powertop
+  - python3-dnf-plugin-tracer
+
 configure_container_management: true
 container_engine: podman
+
+additional_gui_packages:
+  - btrfs-assistant
+  - dconf-editor
+  - filezilla
+  - igt-gpu-tools
+  - shotwell
+gui_packages_removal:
+  - abrt
+  - libreoffice-*
 
 configure_kvm: true
