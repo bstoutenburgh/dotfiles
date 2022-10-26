@@ -11,5 +11,9 @@ asdf_plugins:
     versions:
       - latest
     global: latest
+  - name: "yq"
+    versions:
+      - latest
+    global: latest
 
 complete_alias_version: 1.18.0  # https://github.com/cykerway/complete-alias/tags

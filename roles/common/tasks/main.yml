@@ -31,8 +31,3 @@
     - configure_complete_alias
   tags:
     - complete-alias
-
-
-- name: install yq
-  ansible.builtin.include_role:
-    name: andrewrothstein.yq
