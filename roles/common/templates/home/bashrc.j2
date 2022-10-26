@@ -198,7 +198,10 @@ command -v bat >/dev/null && {
 }
 
 
-{% if configure_container_management and docker_rootless_enable %}
+{% if configure_container_management is defined and
+      configure_container_management is sameas true and
+      docker_rootless_enable is defined and
+      docker_rootless_enable is sameas true %}
 export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/docker.sock
 {% endif %}
 
