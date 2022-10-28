@@ -3,10 +3,18 @@
 - name: configure essential dev tools
   ansible.builtin.include_tasks: "essentials-{{ ansible_facts['os_family'] }}.yml"
 
-- name: inject ansible-lint
+- name: inject ansible-lint into the ansible pipx package
   ansible.builtin.command: pipx inject --include-apps --include-deps ansible ansible-lint
   args:
     creates: "{{ lookup('env', 'PIPX_BIN_DIR') | default(ansible_user_dir + '/.local/bin', true) }}/ansible-lint"
+  # The community.general.pipx approach does not create ${PIPX_BIN_DIR}/ansible-lint yet
+  # looks like an argument is needed to address --include-apps functionality
+  # community.general.pipx:
+  #   name: ansible
+  #   install_deps: true
+  #   inject_packages:
+  #     - ansible-lint
+  #   state: inject
   tags:
     - ansible-lint
 
