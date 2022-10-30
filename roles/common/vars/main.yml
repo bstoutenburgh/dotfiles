@@ -9,7 +9,6 @@ common_terminal_packages:
   - gzip
   - htop
   - jq
-  - mtr
   - multitail
   - screen
   - tar
