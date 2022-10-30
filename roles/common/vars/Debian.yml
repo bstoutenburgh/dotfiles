@@ -1,0 +1,4 @@
+---
+# combines with common_terminal_packages in main.yml
+os_specific_packages:
+  - mtr-tiny
