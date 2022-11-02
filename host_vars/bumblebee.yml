@@ -6,6 +6,7 @@ additional_terminal_packages:
 
 additional_gui_packages:
   - dconf-editor
+  - gnome-boxes
   - xdotool
 gui_packages_removal:
   - libreoffice-*
@@ -24,10 +25,8 @@ solaar_rules:
     key: G6
     key_action: zoom_flip_mute.sh
 
-configure_kvm: true
-additional_libvirt_packages:
-  - gnome-boxes
-  - virt-manager
+configure_virtualization: true
+libvirt_enable_bridge: true
 
 configure_container_management: true
 container_engine: docker

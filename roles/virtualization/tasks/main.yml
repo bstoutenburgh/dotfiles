@@ -1,0 +1,7 @@
+---
+# TODO: handle libvirt vs virtualbox vs <other>, but only libvirt for now
+- name: include libvirt tasks
+  ansible.builtin.include_tasks: libvirt.yml
+  tags:
+    - kvm
+    - libvirt

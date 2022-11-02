@@ -4,3 +4,7 @@ libvirt_packages:
   - libvirt-clients
   - libvirt-daemon-system
   - qemu-kvm
+  - virt-manager
+  - virt-top
+  - virt-viewer
+  - virtinst

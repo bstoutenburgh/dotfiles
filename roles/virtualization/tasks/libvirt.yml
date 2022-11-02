@@ -1,0 +1,37 @@
+---
+- name: include OS-specific variables
+  ansible.builtin.include_vars: "libvirt-{{ ansible_facts['os_family'] }}.yml"
+
+- name: install libvirt packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ libvirt_packages }}"
+    state: latest
+
+- name: enable and start libvirtd service
+  become: true
+  ansible.builtin.service:
+    name: libvirtd
+    enabled: true
+    state: started
+
+# TODO: this is not ready for fedora
+# https://wiki.libvirt.org/page/Networking
+# and/or step 4 of https://www.linuxtechi.com/how-to-install-kvm-on-fedora-step-by-step/
+- name: Enable bridge networking for libvirt
+  when: libvirt_enable_bridge
+  block:
+    # TODO: this line should probably be more dynamic
+    - name: create /etc/qemu/bridge.conf
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/qemu/bridge.conf
+        line: 'allow virbr0'
+        create: true
+        mode: 0644
+
+    - name: ensure setuid bit is set on /usr/lib/qemu/qemu-bridge-helper
+      become: true
+      ansible.builtin.file:
+        path: /usr/lib/qemu/qemu-bridge-helper
+        mode: u+s

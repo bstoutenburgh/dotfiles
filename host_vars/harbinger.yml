@@ -11,10 +11,11 @@ additional_gui_packages:
   - btrfs-assistant
   - dconf-editor
   - filezilla
+  - gnome-boxes
   - igt-gpu-tools
   - shotwell
 gui_packages_removal:
   - abrt
   - libreoffice-*
 
-configure_kvm: true
+configure_virtualization: true

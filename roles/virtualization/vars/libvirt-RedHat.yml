@@ -1,0 +1,5 @@
+---
+libvirt_packages:
+  - "@virtualization"
+  - bridge-utils
+  - virt-top

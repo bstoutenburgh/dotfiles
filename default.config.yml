@@ -11,6 +11,6 @@ configure_container_management: false
 configure_gaming: false
 configure_gamehub: false
 
-configure_kvm: false
+configure_virtualization: false
 
 configure_vscode: false
