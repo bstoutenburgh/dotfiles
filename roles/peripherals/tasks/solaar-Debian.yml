@@ -1,0 +1,6 @@
+---
+# remapping of logitech G keys landed in 1.0.5 or 1.0.6 so need the PPA
+- name: Add solaar-unifying stable repository from PPA and install its signing key
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:solaar-unifying/stable

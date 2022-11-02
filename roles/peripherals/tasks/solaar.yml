@@ -1,19 +1,15 @@
 ---
+# Reminder: pair devices manually, at least for now
 
-# remapping of logitech G keys landed in 1.0.5 or 1.0.6 so need the PPA
-- name: Add solaar-unifying stable repository from PPA and install its signing key
-  become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:solaar-unifying/stable
+- name: include os_family-specific solaar pre-tasks
+  ansible.builtin.include_tasks: "solaar-{{ ansible_facts['os_family'] }}.yml"
 
 - name: Install solaar
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: solaar
     state: latest
     update_cache: true
-
-# Reminder: pair devices manually, at least for now
 
 - name: Populate solaar rules scripts
   ansible.builtin.copy:
