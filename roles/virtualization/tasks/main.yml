@@ -5,3 +5,7 @@
   tags:
     - kvm
     - libvirt
+
+- name: include vagrant tasks
+  when: configure_vagrant
+  ansible.builtin.include_tasks: "vagrant-{{ ansible_facts['os_family'] }}.yml"

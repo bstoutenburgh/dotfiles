@@ -4,8 +4,6 @@
 # common role
 configure_complete_alias: true
 
-configure_vagrant: false
-
 configure_container_management: false
 
 configure_gaming: false

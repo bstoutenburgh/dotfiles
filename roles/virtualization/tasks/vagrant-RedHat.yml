@@ -1,0 +1,19 @@
+---
+# https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+- name: add hashicorp dnf repo
+  become: true
+  ansible.builtin.yum_repository:
+    name: hashicorp
+    file: hashicorp
+    description: "Hashicorp Stable - $basearch"
+    baseurl: "https://rpm.releases.hashicorp.com/{{ (ansible_facts['distribution'] == 'Fedora') | ternary('fedora', 'RHEL') }}/$releasever/$basearch/stable"
+    enabled: true
+    gpgcheck: true
+    # TODO: probably good practice to get this on the system somewhere like the Debian approach and a file:/// reference
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
+
+- name: install vagrant
+  become: true
+  ansible.builtin.package:
+    name: vagrant
+    state: latest

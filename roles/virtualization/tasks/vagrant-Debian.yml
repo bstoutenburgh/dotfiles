@@ -1,7 +1,7 @@
 ---
 - name: get path of hashicorp apt signing key
   ansible.builtin.set_fact:
-    hashicorp_apt_signing_key: "{{ lookup('fileglob', 'hashicorp_apt.gpg') }}" # https://apt.releases.hashicorp.com/gpg
+    hashicorp_apt_signing_key: "{{ lookup('fileglob', 'hashicorp_releases.gpg') }}" # https://apt.releases.hashicorp.com/gpg
 
 - name: add hashicorp apt signing key to apt
   become: true
@@ -21,11 +21,13 @@
 # Ubuntu does their ubuntu thing so their packages will take priority unless you mark 2.2.19 over 2.2.19+dfsg-1ubuntu1 or something, but oh well
 - name: install vagrant
   become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: vagrant
     state: latest
 
+# TODO: once hashicorp's repository supports Fedora 37 (or I have a F36 VM ready) copy over or pull out to shared tasks
 - name: configure vagrant-libvirt
+  when: virtualization_hypervisor == 'libvirt'
   block:
     - name: ensure vagrant-libvirt pre-req dependencies
       become: true
@@ -53,5 +55,3 @@
       ansible.builtin.command: vagrant plugin install vagrant-libvirt
       args:
         creates: "{{ ansible_user_dir }}/.vagrant.d/gems/*/gems/vagrant-libvirt-*/"
-  when:
-    - configure_kvm

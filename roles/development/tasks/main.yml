@@ -17,10 +17,3 @@
   #   state: inject
   tags:
     - ansible-lint
-
-# TODO: move to a role (virtualization?) used by the desktop playbook
-# - name: configure vagrant
-  # ansible.builtin.import_tasks: vagrant.yml
-  # when: configure_vagrant
-  # tags:
-    # - vagrant

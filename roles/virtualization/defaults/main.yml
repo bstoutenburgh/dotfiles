@@ -1,1 +1,4 @@
 libvirt_enable_bridge: false
+virtualization_hypervisor: libvirt
+
+configure_vagrant: false
