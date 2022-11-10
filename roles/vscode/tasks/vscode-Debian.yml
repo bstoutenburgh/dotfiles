@@ -1,0 +1,31 @@
+---
+# Not making this up, https://code.visualstudio.com/docs/setup/linux
+# though some filenames changed based on what's installed already
+- name: get path of armored microsoft signing key
+  ansible.builtin.set_fact:
+    microsoft_signing_key: "{{ lookup('fileglob', 'microsoft.asc') }}" # https://packages.microsoft.com/keys/microsoft.asc
+    microsoft_trusted_keyring_file: /etc/apt/trusted.gpg.d/microsoft.gpg
+
+- name: add microsoft signing key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ microsoft_signing_key }}" > "{{ microsoft_trusted_keyring_file }}"
+    creates: "{{ microsoft_trusted_keyring_file }}"
+  changed_when: false
+
+# yes http:// not https://, vscode manages this file adding the http:// line
+# might need to create an apt preferences file at some point as well
+# https://code.visualstudio.com/docs/setup/linux#_conflicts-with-vs-code-packages-from-other-repositories
+- name: add apt vscode.list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
+    filename: vscode
+    state: present
+    update_cache: true
+
+- name: install code
+  become: true
+  ansible.builtin.apt:
+    name: code
+    state: latest

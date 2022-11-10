@@ -1,0 +1,28 @@
+---
+# https://code.visualstudio.com/docs/setup/linux
+- name: get path of microsoft signing key
+  ansible.builtin.set_fact:
+    microsoft_signing_key: "{{ lookup('fileglob', 'microsoft.asc') }}" # https://packages.microsoft.com/keys/microsoft.asc
+
+- name: import microsoft signing key
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ microsoft_signing_key }}"
+
+- name: add yum vscode.repo
+  become: true
+  ansible.builtin.yum_repository:
+    name: code
+    file: vscode
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: install code
+  become: true
+  ansible.builtin.package:
+    name: code
+    state: latest

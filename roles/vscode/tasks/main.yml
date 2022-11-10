@@ -1,38 +1,17 @@
 ---
-# Not making this up, https://code.visualstudio.com/docs/setup/linux
-# though some filenames changed based on what's installed already
-- name: get path of armored microsoft signing key
-  ansible.builtin.set_fact:
-    microsof_signing_key: "{{ lookup('fileglob', 'microsoft.asc') }}" # https://packages.microsoft.com/keys/microsoft.asc
-    microsoft_trusted_keyring_file: /etc/apt/trusted.gpg.d/microsoft.gpg
+# TODO: vscode vs vscodium
 
-- name: add microsoft signing key to apt
-  become: true
-  ansible.builtin.shell:
-    cmd: gpg --dearmor < "{{ microsof_signing_key }}" > "{{ microsoft_trusted_keyring_file }}"
-    creates: "{{ microsoft_trusted_keyring_file  }}"
-  changed_when: false
+- name: include OS-specific native installation tasks
+  when: vscode_installation_method in ['native', 'dnf', 'rpm', 'apt', 'deb']
+  ansible.builtin.include_tasks: "vscode-{{ ansible_facts['os_family'] }}.yml"
 
-# yes http:// not https://, vscode manages this file adding the http:// line
-# might need to create an apt preferences file at some point as well
-# https://code.visualstudio.com/docs/setup/linux#_conflicts-with-vs-code-packages-from-other-repositories
-- name: add apt vscode.list
-  become: true
-  ansible.builtin.apt_repository:
-    repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
-    filename: vscode
-    state: present
-    update_cache: true
-
-- name: install code
-  become: true
-  ansible.builtin.apt:
-    name: code
-    state: latest
+- name: include flatpak installation tasks
+  when: vscode_installation_method == 'flatpak'
+  ansible.builtin.include_tasks: vscode-flatpak.yml
 
 # WARNING: untested territory because you should be using settings sync
-
 - name: configure settings and extensions
+  when: not vscode_settings_sync
   block:
     # blindly hoping this is enough to initialize ~/.config/Code/User
     - name: register currently installed code extensions
@@ -54,4 +33,3 @@
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_id }}"
         mode: 0664
-  when: not vscode_settings_sync

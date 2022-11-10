@@ -1,0 +1,5 @@
+---
+
+- name: vscode flatpak installtion not yet supported
+  ansible.builtin.fail:
+    msg: vscode flatpak installtion not yet supported

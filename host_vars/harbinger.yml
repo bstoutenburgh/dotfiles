@@ -16,9 +16,12 @@ additional_gui_packages:
   - shotwell
 gui_packages_removal:
   - abrt
+  - gnome-maps
   - libreoffice-*
 
 configure_virtualization: true
 # hashicorp's repo does not support F37 yet
 # curl https://rpm.releases.hashicorp.com/fedora/37/x86_64/stable/repodata/repomd.xml to test
 configure_vagrant: false
+
+configure_vscode: true
