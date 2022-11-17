@@ -1,0 +1,28 @@
+---
+- name: get path of armored google linux signing key
+  ansible.builtin.set_fact:
+    google_signing_key: "{{ lookup('fileglob', 'google_linux_signing_key.pub') }}" # https://dl.google.com/linux/linux_signing_key.pub
+    google_chrome_trusted_keyring_file: /etc/apt/trusted.gpg.d/google-chrome.gpg
+
+# Is not exactly identical to what Google sets up but will get replaced by their cron job
+- name: add google-chrome signing key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ google_signing_key }}" > "{{ google_chrome_trusted_keyring_file }}"
+    creates: "{{ google_chrome_trusted_keyring_file }}"
+  changed_when: false
+
+# also gets replaced by their cron job
+- name: add apt google-chrome.list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    filename: google-chrome
+    state: present
+    update_cache: true
+
+- name: install google-chrome
+  become: true
+  ansible.builtin.package:
+    name: "google-chrome-{{ google_chrome_release_channel }}"
+    state: latest

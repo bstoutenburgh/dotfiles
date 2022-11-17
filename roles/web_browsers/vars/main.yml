@@ -1,0 +1,4 @@
+google_chrome_valid_release_channels:
+  - beta
+  - stable
+  - unstable

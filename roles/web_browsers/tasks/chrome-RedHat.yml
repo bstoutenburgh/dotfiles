@@ -1,0 +1,27 @@
+---
+- name: get path of google signing key
+  ansible.builtin.set_fact:
+    google_signing_key: "{{ lookup('fileglob', 'google_linux_signing_key.pub') }}" # https://dl.google.com/linux/linux_signing_key.pub
+
+- name: import google linux signing key
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ google_signing_key }}"
+
+- name: add yum google-chrome.repo
+  become: true
+  ansible.builtin.yum_repository:
+    name: google-chrome
+    file: google-chrome
+    description: google-chrome
+    baseurl: https://dl.google.com/linux/chrome/rpm/stable/x86_64
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+
+- name: install google-chrome
+  become: true
+  ansible.builtin.package:
+    name: "google-chrome-{{ google_chrome_release_channel }}"
+    state: latest

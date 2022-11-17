@@ -1,10 +1,10 @@
 ---
 - name: configure firefox
-  import_tasks: firefox.yml
+  ansible.builtin.import_tasks: firefox.yml
   tags: firefox
 
 - name: configure google-chrome
-  import_tasks: chrome.yml
+  ansible.builtin.import_tasks: chrome.yml
   tags:
     - google-chrome
     - chrome

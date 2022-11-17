@@ -1,41 +1,12 @@
 ---
-- name: include os-specific variables
-  ansible.builtin.include_vars: "google-chrome-{{ ansible_os_family }}.yml"
+- name: verify a valid release channel is specified
+  ansible.builtin.assert:
+    that:
+      - google_chrome_release_channel in google_chrome_valid_release_channels
+    fail_msg: "google_chrome_release_channel needs to be one of {{ google_chrome_valid_release_channels }}"
 
-- name: define google_chrome_package
-  ansible.builtin.set_fact:
-    google_chrome_package: "{{ __google_chrome_package }}"
-  when: google_chrome_package is not defined
-
-- name: check google chrome version is installed
-  ansible.builtin.command: "dpkg-query -W {{ google_chrome_package_name }}"
-  register: _google_chrome_installed_version
-  changed_when: false
-  check_mode: false
-  failed_when: false
-
-- name: set decision to install google chrome
-  ansible.builtin.set_fact:
-    google_chrome_install: "{{ _google_chrome_installed_version.rc == 1 }}"
-
-- name: download google chrome package
-  ansible.builtin.get_url:
-    url: "{{ google_chrome_download_url }}/{{ google_chrome_package }}"
-    dest: /tmp/
-    mode: 0664
-  when: google_chrome_install
-
-- name: install google chrome package
-  become: true
-  ansible.builtin.apt:
-    deb: "/tmp/{{ google_chrome_package }}"
-    state: present
-  when: google_chrome_install
-
-- name: cleanup google chrome package download
-  ansible.builtin.file:
-    dest: "/tmp/{{ google_chrome_package }}"
-    state: absent
+- name: include OS-specific native installation tasks
+  ansible.builtin.include_tasks: "chrome-{{ ansible_facts['os_family'] }}.yml"
 
 - name: create a dark mode desktop entry
   ansible.builtin.template:

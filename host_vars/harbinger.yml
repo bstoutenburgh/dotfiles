@@ -25,3 +25,5 @@ configure_virtualization: true
 configure_vagrant: false
 
 configure_vscode: true
+
+google_chrome_dark_mode: true
