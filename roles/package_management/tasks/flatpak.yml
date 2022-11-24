@@ -1,0 +1,8 @@
+---
+# https://flatpak.org/setup/Fedora
+- name: add flathub remote
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    method: system
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo

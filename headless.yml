@@ -12,6 +12,7 @@
       tags: [always]
 
   roles:
+    - package_management
     - common
     - development
     - {role: container_management, tags: ['containers'], when: configure_container_management }

@@ -11,6 +11,7 @@
       tags: [always]
 
   roles:
+    - package_management
     - common
     - development
     - desktop
@@ -18,5 +19,5 @@
     - {role: chat_clients, tags: ['chat_clients']}
     - {role: gaming, tags: ['gaming'], when: configure_gaming}
     - {role: web_browsers, tags: ['web_browsers']}
-    - {role: kvm, tags: ['kvm', 'libvirt'], when: configure_kvm}
+    - {role: virtualization, tags: ['virtualization'], when: configure_virtualization}
     - {role: vscode, tags: ['vscode'], when: configure_vscode}

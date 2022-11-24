@@ -1,4 +1,6 @@
 ---
+configure_flatpak: true
+
 additional_terminal_packages:
   - lshw
   - powertop
