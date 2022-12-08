@@ -1,0 +1,24 @@
+---
+- name: get path of armored signal-desktop signing key
+  ansible.builtin.set_fact:
+    signal_desktop_signing_key: "{{ lookup('fileglob', 'signal-desktop.asc') }}" # https://updates.signal.org/desktop/apt/keys.asc
+
+- name: add signal-desktop key to apt
+  become: true
+  ansible.builtin.shell:
+    cmd: gpg --dearmor < "{{ signal_desktop_signing_key }}" > "{{ signal_debian_signing_key_apt_path }}"
+    creates: "{{ signal_debian_signing_key_apt_path }}"
+
+- name: add signal-desktop.list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by={{ signal_debian_signing_key_apt_path }}] https://updates.signal.org/desktop/apt xenial main"
+    filename: signal-desktop.list
+    state: present
+    update_cache: true
+
+- name: install signal-desktop
+  become: true
+  ansible.builtin.package:
+    name: signal-desktop
+    state: latest

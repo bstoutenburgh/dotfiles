@@ -1,0 +1,10 @@
+---
+# have not tried it yet, probably want to wait for https://github.com/flathub/com.discordapp.Discord/pull/248
+- name: Discord flatpak installtion not yet supported
+  ansible.builtin.fail:
+    msg: Discord flatpak installtion not yet supported
+
+# - name: install Discord flatpak
+#   community.general.flatpak:
+#     name: "{{ discord_flatpak_name }}"
+#     state: present

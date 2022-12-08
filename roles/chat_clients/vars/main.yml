@@ -1,6 +1,6 @@
 ---
-slack_machine_map:
-  i686: i386
-  i386: i386
-  x86_64: amd64
-  amd64: amd64
+discord_deb_package_url: https://discord.com/api/download?platform=linux&format=deb
+
+signal_debian_signing_key_apt_path: /etc/apt/trusted.gpg.d/signal-desktop.gpg
+
+opensuse_network_im_signal_distribution_tag: "{{ ansible_facts['distribution'] }}_{{ ansible_facts['distribution_version'] }}"

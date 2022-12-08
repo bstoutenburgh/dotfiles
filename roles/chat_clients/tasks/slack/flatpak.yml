@@ -1,0 +1,10 @@
+---
+# have not tried it yet
+- name: slack flatpak installtion not yet supported
+  ansible.builtin.fail:
+    msg: slack flatpak installtion not yet supported
+
+# - name: install Slack flatpak
+#   community.general.flatpak:
+#     name: "{{ slack_flatpak_name }}"
+#     state: present

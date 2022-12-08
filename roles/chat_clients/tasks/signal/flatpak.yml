@@ -1,0 +1,10 @@
+---
+# have not tried it yet, and the Signal devs raise good concern about flatpak
+- name: signal flatpak installtion not yet supported
+  ansible.builtin.fail:
+    msg: signal flatpak installtion not yet supported
+
+# - name: install signal flatpak
+#   community.general.flatpak:
+#     name: "{{ signal_flatpak_name }}"
+#     state: present

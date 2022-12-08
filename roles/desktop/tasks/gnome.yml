@@ -1,19 +1,24 @@
 ---
-# TODO: handle more custom key bindings
-- name: set keybinding for Tilix quake mode
-  block:
-    - name: create a list of custom-keybindings
-      community.general.dconf:
-        key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
-        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
-        state: present
+# TODO: should have some installation tasks too rather than just assume installed
 
-    - name: set custom-keybindings/custom0 keys
-      community.general.dconf:
-        key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/{{ item.key }}
-        value: "{{ item.value }}"
-        state: present
-      loop: "{{ __gnome_keybindings_custom0 }}"
-  when: desktop_configure_tilix
+# TODO: handle file/mime type associations?
+
+# TODO: handle more custom key bindings
+# - name: set keybinding for Tilix quake mode
+#   block:
+#     - name: create a list of custom-keybindings
+#       community.general.dconf:
+#         key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+#         value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+#         state: present
+
+#     - name: set custom-keybindings/custom0 keys
+#       community.general.dconf:
+#         key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/{{ item.key }}
+#         value: "{{ item.value }}"
+#         state: present
+#       loop: "{{ __gnome_keybindings_custom0 }}"
+#   when: desktop_configure_tilix
 
 # TODO: lots but add Tilix to favorites too
+

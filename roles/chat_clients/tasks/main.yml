@@ -1,22 +1,49 @@
 ---
+# early refactor thought: i wonder if all these blocks are going to be the same and could/should just be looped through...
 - name: configure discord
-  import_tasks: discord.yml
+  when: "'discord' in chat_clients"
   tags:
-  - discord
+    - discord
+  block:
+    - name: include OS-specific native installation tasks
+      when: discord_installation_method in ['native', 'dnf', 'rpm', 'apt', 'deb']
+      ansible.builtin.include_tasks: "discord/{{ ansible_facts['os_family'] }}.yml"
+
+    - name: include flatpak installation tasks
+      when: discord_installation_method == 'flatpak'
+      ansible.builtin.import_tasks: discord/flatpak.yml
 
 - name: configure signal
-  ansible.builtin.include_role:
-    name: staticdev.signal
+  when: "'signal' in chat_clients"
   tags:
     - signal
+  block:
+    - name: include OS-specific native installation tasks
+      when: signal_installation_method in ['native', 'dnf', 'rpm', 'apt', 'deb']
+      ansible.builtin.include_tasks: "signal/{{ ansible_facts['os_family'] }}.yml"
+
+    - name: include flatpak installation tasks
+      when: signal_installation_method == 'flatpak'
+      ansible.builtin.import_tasks: signal/flatpak.yml
 
 - name: configure slack
-  import_tasks: slack.yml
+  when: "'slack' in chat_clients"
   tags:
     - slack
+  block:
+    - name: include OS-specific native installation tasks
+      when: slack_installation_method in ['native', 'dnf', 'rpm', 'apt', 'deb']
+      ansible.builtin.include_tasks: "slack/{{ ansible_facts['os_family'] }}.yml"
+
+    - name: include flatpak installation tasks
+      when: slack_installation_method == 'flatpak'
+      ansible.builtin.import_tasks: slack/flatpak.yml
 
 - name: configure zoom
-  become: true
-  import_tasks: zoom.yml
+  when: "'zoom' in chat_clients"
   tags:
     - zoom
+  ansible.builtin.include_role:
+    name: gotmax23.zoom
+    apply:
+      become: true

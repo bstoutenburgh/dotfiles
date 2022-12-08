@@ -1,0 +1,7 @@
+---
+# It's available from RPM Fusion's repos, so assuming that's enabled...
+- name: install discord
+  become: true
+  ansible.builtin.package:
+    name: discord
+    state: latest

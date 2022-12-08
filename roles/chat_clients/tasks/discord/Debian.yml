@@ -1,0 +1,25 @@
+---
+# - name: install discord
+#   become: true
+#   ansible.builtin.apt:
+#     deb: >-
+#       https://discord.com/api/download?platform=linux&format=deb
+- name: get latest discord package version
+  ansible.builtin.uri:
+    url: "{{ discord_deb_package_url }}"
+    method: HEAD
+  register: discord_latest_query
+  changed_when: false
+
+- name: check discord version installed
+  ansible.builtin.command: dpkg-query --showformat='${Version}' --show discord
+  register: discord_installed_version
+  changed_when: false
+  failed_when: discord_installed_version.rc > 1
+  check_mode: false
+
+- name: install or update discord
+  when: (discord_installed_version.rc == 1) or (discord_installed_version.stdout != discord_installed_version | regex_search('(\d\.\d\.\d)'))
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ discord_latest_query.url }}"

@@ -1,0 +1,35 @@
+---
+# Like everything else this is pretty Fedora-specific, refer to
+# https://packagecloud.io/slacktechnologies/slack/install#manual-rpm
+# if using some other RPM-based setup
+
+- name: get path of armored slack signing key
+  ansible.builtin.set_fact:
+    slack_signing_key: "{{ lookup('fileglob', 'slack.key') }}" # https://packagecloud.io/slacktechnologies/slack/gpgkey
+
+- name: import slack signing key
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ slack_signing_key }}"
+
+# not surprising coming from Slack, they only publish debian/jessie and fedora/21 🤦
+- name: add yum slacktechnologies_slack.repo
+  become: true
+  ansible.builtin.yum_repository:
+    name: slacktechnologies_slack
+    file: slacktechnologies_slack
+    description: slacktechnologies_slack
+    baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
+    repo_gpgcheck: true
+    gpgcheck: false
+    enabled: true
+    gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
+    metadata_expire: 300
+
+- name: install slack
+  become: true
+  ansible.builtin.package:
+    name: slack
+    state: latest
+    enablerepo: slacktechnologies_slack

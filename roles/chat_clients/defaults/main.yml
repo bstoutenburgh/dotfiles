@@ -1,3 +1,15 @@
 ---
-slack_version: 4.26.1
-zoom_deb_url: "https://zoom.us/client/latest/zoom_amd64.deb"
+chat_clients:
+  - discord
+  - signal
+  - slack
+  - zoom
+
+discord_installation_method: native
+discord_flatpak_name: com.discordapp.Discord
+
+signal_installation_method: native
+signal_flatpak_name: org.signal.Signal
+
+slack_installation_method: native
+slack_flatpak_name: com.slack.Slack

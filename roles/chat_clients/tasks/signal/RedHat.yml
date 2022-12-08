@@ -1,0 +1,38 @@
+---
+# Signal devs hear the deman for RPM packaging but are not taking it on and close
+# issues like https://github.com/signalapp/Signal-Desktop/issues/1630 in favor of
+# OpenSUSE packaging which seems like a better move than flatpak to me
+# https://software.opensuse.org/download.html?project=network:im:signal&package=signal-desktop
+
+- name: only Fedora is supported
+  when: ansible_facts['distribution'] != 'Fedora'
+  ansible.builtin.fail:
+    msg: "Can't imagine why you are using {{ ansible_facts['distribution'] }} but only doing this for Fedora"
+
+# https://download.opensuse.org/repositories/network:im:signal/Fedora_37/network:im:signal.repo
+- name: get path of openSUSE network:im:signal signing key
+  ansible.builtin.set_fact:
+    opensuse_network_im_signal_signing_key: "{{ lookup('fileglob', 'opensuse_network_im_signal.key') }}"
+
+- name: import openSUSE network:im:signal signing key
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ opensuse_network_im_signal_signing_key }}"
+
+- name: add network:im:signal.repo
+  become: true
+  ansible.builtin.yum_repository:
+    name: network_im_signal
+    file: network:im:signal
+    description: "Signal Messaging Devel Project ({{ opensuse_network_im_signal_distribution_tag }})"
+    baseurl: "https://download.opensuse.org/repositories/network:/im:/signal/{{ opensuse_network_im_signal_distribution_tag }}/"
+    gpgcheck: true
+    gpgkey: "https://download.opensuse.org/repositories/network:/im:/signal/{{ opensuse_network_im_signal_distribution_tag }}/repodata/repomd.xml.key"
+    enabled: true
+
+- name: install signal-desktop
+  become: true
+  ansible.builtin.package:
+    name: signal-desktop
+    state: latest
