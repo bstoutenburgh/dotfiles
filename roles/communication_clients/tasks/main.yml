@@ -1,7 +1,7 @@
 ---
 # early refactor thought: i wonder if all these blocks are going to be the same and could/should just be looped through...
 - name: configure discord
-  when: "'discord' in chat_clients"
+  when: "'discord' in communication_clients"
   tags:
     - discord
   block:
@@ -14,7 +14,7 @@
       ansible.builtin.import_tasks: discord/flatpak.yml
 
 - name: configure signal
-  when: "'signal' in chat_clients"
+  when: "'signal' in communication_clients"
   tags:
     - signal
   block:
@@ -27,7 +27,7 @@
       ansible.builtin.import_tasks: signal/flatpak.yml
 
 - name: configure slack
-  when: "'slack' in chat_clients"
+  when: "'slack' in communication_clients"
   tags:
     - slack
   block:
@@ -40,7 +40,7 @@
       ansible.builtin.import_tasks: slack/flatpak.yml
 
 - name: configure zoom
-  when: "'zoom' in chat_clients"
+  when: "'zoom' in communication_clients"
   tags:
     - zoom
   ansible.builtin.include_role:
