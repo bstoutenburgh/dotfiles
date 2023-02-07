@@ -1,5 +1,5 @@
 ---
-asdf_version: v0.10.2           # https://github.com/asdf-vm/asdf/releases
+asdf_version: v0.11.1           # https://github.com/asdf-vm/asdf/releases
 asdf_dir: "{{ ansible_user_dir }}/.asdf"
 asdf_disable_updates: true
 asdf_plugins:
