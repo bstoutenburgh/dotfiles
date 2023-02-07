@@ -13,19 +13,16 @@
     state: present
     key: "{{ slack_signing_key }}"
 
-# not surprising coming from Slack, they only publish debian/jessie and fedora/21 🤦
-- name: add yum slacktechnologies_slack.repo
+# copy instead of yum_repository as the daily cronjob will just overwrite
+- name: add yum slack.repo
   become: true
-  ansible.builtin.yum_repository:
-    name: slacktechnologies_slack
-    file: slacktechnologies_slack
-    description: slacktechnologies_slack
-    baseurl: https://packagecloud.io/slacktechnologies/slack/fedora/21/$basearch
-    repo_gpgcheck: true
-    gpgcheck: false
-    enabled: true
-    gpgkey: https://packagecloud.io/slacktechnologies/slack/gpgkey
-    metadata_expire: 300
+  ansible.builtin.copy:
+    src: slack.repo
+    dest: /etc/yum.repos.d/slack.repo
+    owner: root
+    group: root
+    mode: 0644
+    force: false
 
 - name: install slack
   become: true
